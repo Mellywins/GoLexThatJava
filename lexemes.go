@@ -104,7 +104,8 @@ func __init__() *lexmachine.Lexer {
 		TokenIds[tok] = i
 	}
 	// LEXER PATTERNS
-	lexer.Add([]byte(` +`), token("SPACE"))
+	lexer.Add([]byte(`	`), token("TAB"))
+	lexer.Add([]byte(` `), token("SPACE"))
 	lexer.Add([]byte(`[!]`), token("BANG"))
 	lexer.Add([]byte(`-?[1-9][0-9]*`), token("INTEGER_LITERAL"))
 	lexer.Add([]byte(`true|false`), token("BOOLEAN_LITERAL"))
@@ -123,7 +124,6 @@ func __init__() *lexmachine.Lexer {
 	lexer.Add([]byte(`//[^\n]*\n?`), token("SINGLE_LINE_COMMENT"))
 	lexer.Add([]byte(`/\*([^*]|\r|\n|(\*+([^*/]|\r|\n)))*\*+/`), token("MULTI_LINE_COMMENT"))
 	lexer.Add([]byte(`\n`), token("BREAK_LINE"))
-	lexer.Add([]byte(`[ \t]+`), token("TAB"))
 
 	err := lexer.Compile()
 	must(err)

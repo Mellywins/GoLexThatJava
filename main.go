@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 
 	"github.com/timtadh/lexmachine/machines"
 )
@@ -17,6 +18,7 @@ func mapkey(m map[string]int, value int) (key string, ok bool) {
 	}
 	return
 }
+
 func main() {
 	fmt.Println("---------- START ----------")
 	defer fmt.Println("\n---------- END ----------")
@@ -25,6 +27,13 @@ func main() {
 	must(err)
 	scanner, err := myLexer.Scanner(file)
 	must(err)
+	outputFile, err := os.Create("output.java")
+	must(err)
+	defer outputFile.Close()
+	ioutil.WriteFile(outputFile.Name(), []byte(`package main;`), os.ModePerm)
+	openedFile, err := os.OpenFile("output.java", os.O_APPEND|os.O_WRONLY, os.ModePerm)
+	must(err)
+	openedFile.WriteString("\n")
 	for tok, err, eos := scanner.Next(); !eos; tok, err, eos = scanner.Next() {
 		if ui, is := err.(*machines.UnconsumedInput); is {
 			// skip the error via:
@@ -34,15 +43,25 @@ func main() {
 		}
 		must(err)
 		k, _ := mapkey(TokenIds, tok.(*Token).TokenType)
+
 		// fmt.Print(k, ":", tok.(*Token).Lexeme, " ")
 		if k == "SPACE" {
+			_, err := openedFile.WriteString(" ")
+			must(err)
 			fmt.Print(" ")
 		} else if k == "BREAK_LINE" {
 			fmt.Println()
-		} else if k == "TAB" {
-			fmt.Print("\t")
+			_, err := openedFile.WriteString("\n")
+			must(err)
+			// } else if k == "TAB" {
+			// 	fmt.Print("\t")
+			// 	_, err := openedFile.WriteString("\t")
+			// 	must(err)
 		} else {
 			fmt.Print(k)
+			_, err := openedFile.WriteString(k)
+			must(err)
+
 		}
 	}
 }
