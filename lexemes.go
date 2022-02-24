@@ -59,6 +59,7 @@ func __init__() *lexmachine.Lexer {
 		"return",
 		"int",
 		"if",
+		"for",
 		"else",
 		"while",
 		"this",
