@@ -1,6 +1,9 @@
 # GoLexThatJava
 This library is a Lexical Analysis for a minified java syntax.
 You can find more info about the target syntax in this [Document](./TP_2022.doc.pdf)
+
+## Ressources:
+* Articles: https://hackthology.com/writing-a-lexer-in-go-with-lexmachine.html
 ## Execution example
 Running this program on [example.java](./example.java) yields: 
 ```JAVA

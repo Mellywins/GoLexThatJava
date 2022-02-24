@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
+	"github.com/timtadh/lexmachine"
 	"github.com/timtadh/lexmachine/machines"
 )
 
@@ -42,7 +43,7 @@ func main() {
 			// return err
 		}
 		must(err)
-		k, _ := mapkey(TokenIds, tok.(*Token).TokenType)
+		k, _ := mapkey(TokenIds, tok.(*lexmachine.Token).Type)
 
 		// fmt.Print(k, ":", tok.(*Token).Lexeme, " ")
 		if k == "SPACE" {

@@ -22,11 +22,12 @@ func NewToken(tokenType string, m *machines.Match) *Token {
 		Match:     m,
 	}
 }
-func token(tokenType string) func(*lexmachine.Scanner, *machines.Match) (interface{}, error) {
-	return func(s *lexmachine.Scanner, m *machines.Match) (interface{}, error) {
-		return NewToken(tokenType, m), nil
-	}
-}
+
+// func token(tokenType string) func(*lexmachine.Scanner, *machines.Match) (interface{}, error) {
+// 	return func(s *lexmachine.Scanner, m *machines.Match) (interface{}, error) {
+// 		return NewToken(tokenType, m), nil
+// 	}
+// }
 func must(err error) {
 	if err != nil {
 		panic(err)
@@ -122,11 +123,24 @@ func __init__() *lexmachine.Lexer {
 	}
 	lexer.Add([]byte(`[A-Za-z_][A-Za-z0-9_]*`), token("IDENTIFIER"))
 	lexer.Add([]byte(`//[^\n]*\n?`), token("SINGLE_LINE_COMMENT"))
-	lexer.Add([]byte(`/\*([^*]|\r|\n|(\*+([^*/]|\r|\n)))*\*+/`), token("MULTI_LINE_COMMENT"))
+	lexer.Add([]byte(`/\*([^*]|\r|\n|(\*+([^*/]|\r|\n)))*\*+/`), func(scan *lexmachine.Scanner, match *machines.Match) (interface{}, error) {
+		return token("MULTI_LINE_COMMENT")(scan, match)
+	})
 	lexer.Add([]byte(`\n`), token("BREAK_LINE"))
 
 	err := lexer.Compile()
 	must(err)
 
 	return lexer
+}
+func skip(*lexmachine.Scanner, *machines.Match) (interface{}, error) {
+	return nil, nil
+}
+
+// a lexmachine.Action function with constructs a Token of the given token type by
+// the token type's name.
+func token(name string) lexmachine.Action {
+	return func(s *lexmachine.Scanner, m *machines.Match) (interface{}, error) {
+		return s.Token(TokenIds[name], string(m.Bytes), m), nil
+	}
 }
