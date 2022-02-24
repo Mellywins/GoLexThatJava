@@ -19,6 +19,7 @@ func mapkey(m map[string]int, value int) (key string, ok bool) {
 }
 func main() {
 	fmt.Println("---------- START ----------")
+	defer fmt.Println("\n---------- END ----------")
 	myLexer := __init__()
 	file, err := ioutil.ReadFile("example.java")
 	must(err)
