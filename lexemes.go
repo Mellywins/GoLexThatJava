@@ -39,6 +39,11 @@ func __init__() *lexmachine.Lexer {
 		"INTEGER_LITERAL",
 		"BOOLEAN_LITERAL",
 		"IDENTIFIER",
+		"SINGLE_LINE_COMMENT",
+		"MULTI_LINE_COMMENT",
+		"AFFECTATION",
+		"BREAK_LINE",
+		"RESERVED_WORD",
 	}
 	TokenIds = make(map[string]int)
 	for i, tok := range Tokens {
@@ -49,7 +54,12 @@ func __init__() *lexmachine.Lexer {
 	lexer.Add([]byte(`[!]`), token("BANG"))
 	lexer.Add([]byte(`-?[1-9][0-9]*`), token("INTEGER_LITERAL"))
 	lexer.Add([]byte(`true|false`), token("BOOLEAN_LITERAL"))
+	lexer.Add([]byte(`class|public|static|void|main|String|extends|int|boolean|if|else|while|System.out.println|length|this|new`), token("RESERVED_WORD"))
 	lexer.Add([]byte(`[A-Za-z_][A-Za-z0-9_]*`), token("IDENTIFIER"))
+	lexer.Add([]byte(`//[^\n]*`), token("SINGLE_LINE_COMMENT"))
+	lexer.Add([]byte(`/\*[^\*]*\*/`), token("MULTI_LINE_COMMENT"))
+	lexer.Add([]byte(`[=]`), token("AFFECTATION"))
+	lexer.Add([]byte(`\n`), token("BREAK_LINE"))
 
 	err := lexer.Compile()
 	must(err)

@@ -9,7 +9,7 @@ import (
 func main() {
 	fmt.Println("---------- START ----------")
 	myLexer := __init__()
-	scanner, err := myLexer.Scanner([]byte("wild!     "))
+	scanner, err := myLexer.Scanner([]byte(`public static void main /* this is a comment */`))
 	must(err)
 	for tok, err, eos := scanner.Next(); !eos; tok, err, eos = scanner.Next() {
 		if ui, is := err.(*machines.UnconsumedInput); is {
