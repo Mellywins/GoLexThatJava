@@ -4,7 +4,7 @@ You can find more info about the target syntax in this [Document](./TP_2022.doc.
 
 This tool uses a DFA (Deterministic Finite Automata) as a backend to efficiently tokenize the Code text.
 ## The minjava BNF:
-```BNF
+``` r
 BNF de MiniJAVA
 Program ::= MainClass ( ClassDeclaration )* <EOF>
 MainClass ::= "class" Identifier "{" "public" "static" "void" "main" "(" "String" "[""]" Identifier ")" "{" Statement "}" "}"
