@@ -1,5 +1,5 @@
 class Factorial{
-    public static void main(String[] a){
+    public static void main(String[] a) {
         System.out.println(new Fac().ComputeFac(10)); 
     }
 }
@@ -21,6 +21,7 @@ class Fac extends Thread {
         if (num <= 1)
             num_aux = 1 ;
             /* else case
+            
             */
 
         else

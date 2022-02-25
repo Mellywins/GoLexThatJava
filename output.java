@@ -1,6 +1,6 @@
 package main;
 class IDENTIFIER{
-    public static void main(String[] IDENTIFIER){
+    public static void main(String[] IDENTIFIER) {
         System.out.println(new IDENTIFIER().IDENTIFIER(INTEGER_LITERAL)); 
     }
 }
@@ -20,4 +20,10 @@ class IDENTIFIER extends IDENTIFIER {
         }
         if (IDENTIFIER <= INTEGER_LITERAL)
             IDENTIFIER = INTEGER_LITERAL ;
-            
+            MULTI_LINE_COMMENT
+
+        else
+            IDENTIFIER = IDENTIFIER * (this.IDENTIFIER(IDENTIFIER- INTEGER_LITERAL)) ;
+        return IDENTIFIER ;
+    }
+}
