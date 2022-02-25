@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/timtadh/lexmachine"
@@ -124,7 +125,24 @@ func __init__() *lexmachine.Lexer {
 	lexer.Add([]byte(`[A-Za-z_][A-Za-z0-9_]*`), token("IDENTIFIER"))
 	lexer.Add([]byte(`//[^\n]*\n?`), token("SINGLE_LINE_COMMENT"))
 	lexer.Add([]byte(`/\*([^*]|\r|\n|(\*+([^*/]|\r|\n)))*\*+/`), func(scan *lexmachine.Scanner, match *machines.Match) (interface{}, error) {
+
 		return token("MULTI_LINE_COMMENT")(scan, match)
+	})
+	lexer.Add([]byte(`\/\*`), func(scan *lexmachine.Scanner, match *machines.Match) (interface{}, error) {
+		commentIndicatorCount := 1
+		for tc := scan.TC; tc < len(scan.Text)-1; tc++ {
+			tokenStr := fmt.Sprintf("%b%b", scan.Text[tc], scan.Text[tc+1])
+			if tokenStr == "/*" {
+				commentIndicatorCount++
+			} else if tokenStr == "*/" {
+				commentIndicatorCount--
+			}
+			if commentIndicatorCount == 0 {
+				return token("MULTI_LINE_COMMENT")(scan, match)
+			}
+		}
+		return nil, fmt.Errorf(
+			"Error: Reached EOF without Unclosed comment")
 	})
 	lexer.Add([]byte(`\n`), token("BREAK_LINE"))
 

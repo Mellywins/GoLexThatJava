@@ -15,14 +15,9 @@ class IDENTIFIER extends IDENTIFIER {
         int IDENTIFIER ;
         SINGLE_LINE_COMMENT        
         for(int IDENTIFIER=INTEGER_LITERAL; IDENTIFIER<=IDENTIFIER; IDENTIFIER++){
-            IDENTIFIER = IDENTIFIER;
+            IDENTIFIER=IDENTIFIER;
             System.out.println(IDENTIFIER);
         }
         if (IDENTIFIER <= INTEGER_LITERAL)
             IDENTIFIER = INTEGER_LITERAL ;
-            MULTI_LINE_COMMENT
-        else
-            IDENTIFIER = IDENTIFIER * (this.IDENTIFIER(IDENTIFIER - INTEGER_LITERAL)) ;
-        return IDENTIFIER ;
-    }
-}
+            

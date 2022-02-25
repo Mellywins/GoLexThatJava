@@ -15,15 +15,16 @@ class Fac extends Thread {
         // base case
         
         for(int i=1; i<=num; i++){
-            num_aux = i;
+            num_aux=i;
             System.out.println(num_aux);
         }
         if (num <= 1)
             num_aux = 1 ;
             /* else case
             */
+
         else
-            num_aux = num * (this.ComputeFac(num - 1)) ;
+            num_aux = num * (this.ComputeFac(num- 1)) ;
         return num_aux ;
     }
 }
