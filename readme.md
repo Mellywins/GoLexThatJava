@@ -2,6 +2,7 @@
 This library is a Lexical Analysis for a minified java syntax.
 You can find more info about the target syntax in this [Document](./TP_2022.doc.pdf)
 
+This tool uses a DFA (Deterministic Finite Automata) as a backend to efficiently tokenize the Code text.
 ## Ressources:
 * Articles: https://hackthology.com/writing-a-lexer-in-go-with-lexmachine.html
 ## Execution example
