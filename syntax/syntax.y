@@ -79,3 +79,6 @@
 
 %% /* The grammar follows */
 Program : MainClass ( ClassDeclaration )* <EOF>;
+MainClass : class IDENTIFIER { public static void main (String[] IDENTIFIER){ Statement }}
+ClassDeclaration : class IDENTIFIER ( extends IDENTIFIER )? { ( VarDeclaration )* ( MethodDeclaration )* }
+VarDeclaration : Type IDENTIFIER ;
