@@ -1,6 +1,11 @@
 package syntax
 
-import "github.com/timtadh/lexmachine"
+import (
+	"fmt"
+	"strings"
+
+	"github.com/timtadh/lexmachine"
+)
 
 type Node struct {
 	Name     string
@@ -33,4 +38,14 @@ func (n *Node) PrependKid(kid *Node) *Node {
 func (n *Node) String() string {
 	parts := make([]string, 0, len(n.Children))
 	parts = append(parts, n.Name)
+	if n.Token != nil && string(n.Token.Lexeme) != n.Name {
+		parts = append(parts, fmt.Sprintf("%q", string(n.Token.Lexeme)))
+	}
+	for _, k := range n.Children {
+		parts = append(parts, k.String())
+	}
+	if len(parts) > 1 {
+		return fmt.Sprintf("(%v)", strings.Join(parts, " "))
+	}
+	return strings.Join(parts, " ")
 }
