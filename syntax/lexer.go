@@ -1,9 +1,8 @@
-package lexical
+package main
 
 import (
 	"fmt"
 
-	m "github.com/Mellywins/GoLexThatJava/syntax"
 	"github.com/timtadh/lexmachine"
 )
 
