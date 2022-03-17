@@ -17,3 +17,5 @@ github.com/timtadh/lexmachine/frontend
 github.com/timtadh/lexmachine/inst
 github.com/timtadh/lexmachine/machines
 github.com/timtadh/lexmachine/queue
+# golang.org/x/tools v0.1.10
+## explicit; go 1.17
