@@ -46,7 +46,6 @@ func __init__() *lexmachine.Lexer {
 		"IDENTIFIER",
 		"SINGLE_LINE_COMMENT",
 		"MULTI_LINE_COMMENT",
-		"AFFECTATION",
 		"BREAK_LINE",
 		"RESERVED_WORD",
 	}
@@ -109,7 +108,7 @@ func __init__() *lexmachine.Lexer {
 	lexer.Add([]byte(`	`), token("TAB"))
 	lexer.Add([]byte(` `), token("SPACE"))
 	lexer.Add([]byte(`[!]`), token("BANG"))
-	lexer.Add([]byte(`-?[1-9][0-9]*`), token("INTEGER_LITERAL"))
+	lexer.Add([]byte(`[1-9][0-9]*`), token("INTEGER_LITERAL"))
 	lexer.Add([]byte(`true|false`), token("BOOLEAN_LITERAL"))
 	lexer.Add([]byte(`\(`), func(scan *lexmachine.Scanner, match *machines.Match) (interface{}, error) {
 		parenthesisCount := 1
@@ -198,6 +197,10 @@ func __init__() *lexmachine.Lexer {
 			"Error: Reached EOF without Unclosed comment starting at %d, (%d, %d)", match.TC, match.StartLine, match.StartColumn)
 	})
 	lexer.Add([]byte(`\n`), token("BREAK_LINE"))
+	lexer.Add([]byte(`.`), func(scan *lexmachine.Scanner, match *machines.Match) (interface{}, error) {
+
+		return nil, fmt.Errorf("error: uknown element found at %d, (%d,%d)", match.TC, match.StartLine, match.StartColumn)
+	})
 
 	err := lexer.Compile()
 	must(err)
