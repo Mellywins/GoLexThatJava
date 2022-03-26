@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-
+	lexical "github.com/Mellywins/GoLexThatJava/lexical"
 	"github.com/timtadh/lexmachine"
 )
 
 type golex struct {
 	*lexmachine.Scanner
-	stmts []*m.Node
+	stmts []*Node
 }
 
 func newGoLex(lexer *lexmachine.Lexer, text []byte) (*golex, error) {
@@ -44,4 +44,7 @@ func (g *golex) Lex(lval *yySymType) (tokenType int) {
 func (l *golex) Error(message string) {
 	// is there a better way to handle this in the context of goyacc?
 	panic(fmt.Errorf(message))
+}
+func newLexer() *lexmachine.Lexer {
+	return lexical.NewLexer()
 }

@@ -50,35 +50,79 @@
 %token extends
 
 /* Literal tokens */
-%token [
-%token ] 
-%token (
-%token )
-%token {
-%token }
-%token ,
-%token ;
-%token .
-%token :
+%token LEFTBRACKET
+%token RIGHTBRACKET
+%token LEFTANGLEBRACKET
+%token RIGHTANGLEBRACKET
+%token COMMA
+%token SEMICOLON
+%token COLON
+%token LEFTPARENTHESIS
+%token RIGHTPARENTHESIS
+%token PERIOD
 
 /* Operator tokens */
-%token +
-%token -
-%token *
-%token /
-%token %
-%token <
-%token >
-%token <=
-%token >=
-%token ==
-%token !=
-%token &&
-%token ||
-%token =
+%token PLUS
+%token ASTERIX
+%token DIVISION
+%token MODULO
+%token DOUBLEQUAL
+%token DIFFERENT
+%token LESS
+%token LESSOREQUALS
+%token GREATER
+%token GREATEROREQUALS
+%token LOGICALAND
+%token LOGICALOR
+%token EQUAL
+%token MINUS
 
 %% /* The grammar follows */
-Program : MainClass ( ClassDeclaration )* <EOF>;
-MainClass : class IDENTIFIER { public static void main (String[] IDENTIFIER){ Statement }}
-ClassDeclaration : class IDENTIFIER ( extends IDENTIFIER )? { ( VarDeclaration )* ( MethodDeclaration )* }
-VarDeclaration : Type IDENTIFIER ;
+Program : MainClass
+ 	| MainClass ClassDeclaration   ;
+
+MainClass : class IDENTIFIER LEFTANGLEBRACKET public static void main LEFTPARENTHESIS String LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET
+ClassDeclaration : class IDENTIFIER Extension LEFTANGLEBRACKET  VarDeclaration   MethodDeclaration  RIGHTANGLEBRACKET
+Extension:
+	 | extends IDENTIFIER
+	 ;
+VarDeclaration :
+		| Type IDENTIFIER SEMICOLON VarDeclaration;
+Statement : LEFTANGLEBRACKET  Statement  RIGHTANGLEBRACKET
+            | if LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement else Statement
+            | while LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement
+            | System.out.println LEFTPARENTHESIS Expression RIGHTPARENTHESIS SEMICOLON
+            | IDENTIFIER EQUAL Expression SEMICOLON
+            | IDENTIFIER LEFTBRACKET Expression RIGHTBRACKET EQUAL Expression SEMICOLON
+            | ;
+Type: int LEFTBRACKET RIGHTBRACKET
+	| boolean
+	| int
+	| IDENTIFIER ;
+MethodTypeDeclaration:
+		| Type IDENTIFIER
+		| Type IDENTIFIER COMMA MethodTypeDeclaration ;
+MethodDeclaration : public Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement return Expression SEMICOLON RIGHTANGLEBRACKET
+		  | public Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement return Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration
+		  | ;
+Expression :
+	    | Expression LOGICALAND Expression
+	    | Expression LESS Expression
+	    | Expression PLUS Expression
+	    | Expression MINUS Expression
+	    | Expression ASTERIX Expression
+            |  Expression LEFTBRACKET Expression RIGHTBRACKET
+            |  Expression PERIOD  length
+            |  Expression PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS
+            |  INTEGER_LITERAL
+            |  BOOLEAN_LITERAL
+            |  IDENTIFIER
+            | this
+            | new int LEFTBRACKET Expression RIGHTBRACKET
+            | new IDENTIFIER LEFTPARENTHESIS RIGHTPARENTHESIS
+            | BANG Expression
+            | LEFTPARENTHESIS Expression RIGHTPARENTHESIS
+       	    ;
+MethodExpressionSignature : Expression
+			  | MethodExpressionSignature COMMA Expression
+			  ;
