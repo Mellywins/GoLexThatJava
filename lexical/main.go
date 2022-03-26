@@ -23,7 +23,7 @@ func mapkey(m map[string]int, value int) (key string, ok bool) {
 func main() {
 	fmt.Println("---------- START ----------")
 	defer fmt.Println("\n---------- END ----------")
-	myLexer := __init__()
+	myLexer := NewLexer()
 	file, err := ioutil.ReadFile("../test/example.java")
 	must(err)
 	scanner, err := myLexer.Scanner(file)
@@ -31,10 +31,16 @@ func main() {
 	outputFile, err := os.Create("../test/output.java")
 	must(err)
 	defer outputFile.Close()
-	ioutil.WriteFile(outputFile.Name(), []byte(`package main;`), os.ModePerm)
+	err = ioutil.WriteFile(outputFile.Name(), []byte(`package main;`), os.ModePerm)
+	if err != nil {
+		return
+	}
 	openedFile, err := os.OpenFile("../test/output.java", os.O_APPEND|os.O_WRONLY, os.ModePerm)
 	must(err)
-	openedFile.WriteString("\n")
+	_, err = openedFile.WriteString("\n")
+	if err != nil {
+		return
+	}
 	for tok, err, eos := scanner.Next(); !eos; tok, err, eos = scanner.Next() {
 		if ui, is := err.(*machines.UnconsumedInput); is {
 			// skip the error via:
@@ -59,7 +65,7 @@ func main() {
 			// 	_, err := openedFile.WriteString("\t")
 			// 	must(err)
 		} else {
-			fmt.Print(k)
+			_, err = fmt.Print(k)
 			_, err := openedFile.WriteString(k)
 			must(err)
 

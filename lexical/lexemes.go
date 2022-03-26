@@ -34,7 +34,7 @@ func must(err error) {
 		panic(err)
 	}
 }
-func __init__() *lexmachine.Lexer {
+func NewLexer() *lexmachine.Lexer {
 	lexer := lexmachine.NewLexer()
 
 	Tokens := []string{
@@ -81,6 +81,18 @@ func __init__() *lexmachine.Lexer {
 		")",
 		".",
 	}
+	LiteralTokens := []string{
+		"LEFTBRACKET",
+		"RIGHTBRACKET",
+		"LEFTANGLEBRACKET",
+		"RIGHTANGLEBRACKET",
+		"COMMA",
+		"SEMICOLON",
+		"COLON",
+		"LEFTPARENTHESIS",
+		"RIGHTPARENTHESIS",
+		"PERIOD",
+	}
 	Operators := []string{
 		"+",
 		"*",
@@ -97,16 +109,32 @@ func __init__() *lexmachine.Lexer {
 		"=",
 		"-",
 	}
+	OperatorTokens := []string{
+		"PLUS",
+		"ASTERIX",
+		"DIVISION",
+		"MODULO",
+		"DOUBLEQUAL",
+		"DIFFERENT",
+		"LESS",
+		"LESSOREQUALS",
+		"GREATER",
+		"GREATEROREQUALS",
+		"LOGICALAND",
+		"LOGICALOR",
+		"EQUAL",
+		"MINUS",
+	}
 	Tokens = append(Tokens, ReservedWords...)
-	Tokens = append(Tokens, Literals...)
-	Tokens = append(Tokens, Operators...)
+	Tokens = append(Tokens, LiteralTokens...)
+	Tokens = append(Tokens, OperatorTokens...)
 	TokenIds = make(map[string]int)
 	for i, tok := range Tokens {
 		TokenIds[tok] = i
 	}
 	// LEXER PATTERNS
-	lexer.Add([]byte(`	`), token("TAB"))
-	lexer.Add([]byte(` `), token("SPACE"))
+	lexer.Add([]byte(`	`), skip)
+	lexer.Add([]byte(` `), skip)
 	lexer.Add([]byte(`[!]`), token("BANG"))
 	lexer.Add([]byte(`[1-9][0-9]*`), token("INTEGER_LITERAL"))
 	lexer.Add([]byte(`true|false`), token("BOOLEAN_LITERAL"))
@@ -126,7 +154,7 @@ func __init__() *lexmachine.Lexer {
 				parenthesisCount--
 			}
 			if parenthesisCount == 0 {
-				return token("(")(scan, match)
+				return token("LEFTPARENTHESIS")(scan, match)
 			}
 		}
 		// fmt.Println("DEBUG LOG: ", "\n", "Parenthesis Count: ", parenthesisCount, "\n", "Match: ", match.TC, "\n", "Text Length", len(scan.Text))
@@ -149,23 +177,25 @@ func __init__() *lexmachine.Lexer {
 				bracersCount--
 			}
 			if bracersCount == 0 {
-				return token("{")(scan, match)
+				return token("LEFTANGLEBRACKET")(scan, match)
 			}
 		}
 		// fmt.Println("DEBUG LOG: ", "\n", "Parenthesis Count: ", parenthesisCount, "\n", "Match: ", match.TC, "\n", "Text Length", len(scan.Text))
 		return nil, fmt.Errorf(
 			"Error: Reached EOF without Unclosed bracket: \"{\" starting at %d, (%d, %d)", match.TC, match.StartLine, match.StartColumn)
 	})
-	for _, lit := range Literals {
+	for i, lit := range Literals {
 		r := "\\" + strings.Join(strings.Split(lit, ""), "\\")
-		lexer.Add([]byte(r), token(lit))
+		fmt.Println("Added token : ", r, "under token name: ", LiteralTokens[i])
+		lexer.Add([]byte(r), token(LiteralTokens[i]))
 	}
 	for _, name := range ReservedWords {
 		lexer.Add([]byte(name), token(name))
 	}
-	for _, op := range Operators {
+	for i, op := range Operators {
 		formattedOp := "\\" + strings.Join(strings.Split(op, ""), "\\")
-		lexer.Add([]byte(formattedOp), token(op))
+		fmt.Println("Added token : ", formattedOp, "under token name: ", OperatorTokens[i])
+		lexer.Add([]byte(formattedOp), token(OperatorTokens[i]))
 	}
 
 	lexer.Add([]byte(`[A-Za-z_][A-Za-z0-9_]*`), token("IDENTIFIER"))
@@ -201,7 +231,6 @@ func __init__() *lexmachine.Lexer {
 
 		return nil, fmt.Errorf("error: uknown element found at %d, (%d,%d)", match.TC, match.StartLine, match.StartColumn)
 	})
-
 	err := lexer.Compile()
 	must(err)
 
