@@ -9,6 +9,9 @@ github.com/timtadh/data-structures/set
 github.com/timtadh/data-structures/tree
 github.com/timtadh/data-structures/tree/avl
 github.com/timtadh/data-structures/types
+# github.com/timtadh/getopt v1.0.1
+## explicit
+github.com/timtadh/getopt
 # github.com/timtadh/lexmachine v0.2.2
 ## explicit
 github.com/timtadh/lexmachine
@@ -17,5 +20,3 @@ github.com/timtadh/lexmachine/frontend
 github.com/timtadh/lexmachine/inst
 github.com/timtadh/lexmachine/machines
 github.com/timtadh/lexmachine/queue
-# golang.org/x/tools v0.1.10
-## explicit; go 1.17

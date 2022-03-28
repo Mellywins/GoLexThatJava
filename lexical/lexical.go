@@ -20,22 +20,22 @@ func mapkey(m map[string]int, value int) (key string, ok bool) {
 	return
 }
 
-func main() {
+func PrintLexing() {
 	fmt.Println("---------- START ----------")
 	defer fmt.Println("\n---------- END ----------")
 	myLexer := NewLexer()
-	file, err := ioutil.ReadFile("../test/example.java")
+	file, err := ioutil.ReadFile("test/example.java")
 	must(err)
 	scanner, err := myLexer.Scanner(file)
 	must(err)
-	outputFile, err := os.Create("../test/output.java")
+	outputFile, err := os.Create("test/output.java")
 	must(err)
 	defer outputFile.Close()
 	err = ioutil.WriteFile(outputFile.Name(), []byte(`package main;`), os.ModePerm)
 	if err != nil {
 		return
 	}
-	openedFile, err := os.OpenFile("../test/output.java", os.O_APPEND|os.O_WRONLY, os.ModePerm)
+	openedFile, err := os.OpenFile("test/output.java", os.O_APPEND|os.O_WRONLY, os.ModePerm)
 	must(err)
 	_, err = openedFile.WriteString("\n")
 	if err != nil {

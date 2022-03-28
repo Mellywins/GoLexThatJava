@@ -1,0 +1,77 @@
+
+state 0
+	$accept: .Program $end 
+
+	INTEGER_LITERAL  shift 4
+	.  error
+
+	Program  goto 1
+	Statement  goto 2
+	Expression  goto 3
+
+state 1
+	$accept:  Program.$end 
+
+	$end  accept
+	.  error
+
+
+state 2
+	Program:  Statement.    (1)
+
+	.  reduce 1 (src line 63)
+
+
+state 3
+	Statement:  Expression.Operator Expression 
+
+	PLUS  shift 6
+	MINUS  shift 7
+	.  error
+
+	Operator  goto 5
+
+state 4
+	Expression:  INTEGER_LITERAL.    (3)
+
+	.  reduce 3 (src line 73)
+
+
+state 5
+	Statement:  Expression Operator.Expression 
+
+	INTEGER_LITERAL  shift 4
+	.  error
+
+	Expression  goto 8
+
+state 6
+	Operator:  PLUS.    (4)
+
+	.  reduce 4 (src line 75)
+
+
+state 7
+	Operator:  MINUS.    (5)
+
+	.  reduce 5 (src line 76)
+
+
+state 8
+	Statement:  Expression Operator Expression.    (2)
+
+	.  reduce 2 (src line 66)
+
+
+49 terminals, 5 nonterminals
+6 grammar rules, 9/16000 states
+0 shift/reduce, 0 reduce/reduce conflicts reported
+54 working sets used
+memory: parser 4/240000
+1 extra closures
+4 shift entries, 1 exceptions
+5 goto entries
+0 entries saved by goto default
+Optimizer space used: output 14/240000
+14 table entries, 6 zero
+maximum spread: 49, maximum offset: 36

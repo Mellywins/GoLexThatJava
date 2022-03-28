@@ -13,7 +13,7 @@ type Node struct {
 	Children []*Node
 }
 
-func newNode(name string, token *lexmachine.Token) *Node {
+func NewNode(name string, token *lexmachine.Token) *Node {
 	return &Node{
 		Name:  name,
 		Token: token,
@@ -22,7 +22,7 @@ func newNode(name string, token *lexmachine.Token) *Node {
 
 // Add a child at the end of the children list to a node.
 func (n *Node) AddKid(kid *Node) *Node {
-	n.Children = append(n.Children, n)
+	n.Children = append(n.Children, kid)
 	return n
 }
 
@@ -41,6 +41,7 @@ func (n *Node) String() string {
 	if n.Token != nil && string(n.Token.Lexeme) != n.Name {
 		parts = append(parts, fmt.Sprintf("%q", string(n.Token.Lexeme)))
 	}
+	fmt.Println("length ", len(n.Children))
 	for _, k := range n.Children {
 		parts = append(parts, k.String())
 	}

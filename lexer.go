@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	lexical "github.com/Mellywins/GoLexThatJava/lexical"
 	"github.com/timtadh/lexmachine"
 )
@@ -27,6 +28,7 @@ func (g *golex) Lex(lval *yySymType) (tokenType int) {
 	s := g.Scanner
 	tok, err, eof := s.Next()
 	if err != nil {
+		fmt.Println("token that failed: ", tok)
 		g.Error(err.Error())
 	} else if eof {
 		return -1 // signals EOF to goyacc's yyParse
@@ -34,7 +36,7 @@ func (g *golex) Lex(lval *yySymType) (tokenType int) {
 	lval.token = tok.(*lexmachine.Token)
 	// To return the correct number for goyacc you must add yyPrivate - 1 to
 	// put the value into the correct range.
-	return lval.token.Type + yyPrivate - 1
+	return lval.token.Type + yyPrivate + 2
 }
 
 // Error implements the error handling for if there is a parse error of any

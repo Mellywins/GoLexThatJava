@@ -7,11 +7,10 @@
 // > <type an expression>
 
 %{
-    package syntax
+    package main
     import (
-        "fmt"
-        "log"
-
+	"github.com/timtadh/lexmachine"
+	"fmt"
     )
 %}
 %union{
@@ -30,24 +29,24 @@
 %token BREAK_LINE
 
 /* Reserved words tokens */
-%token class
-%token public
-%token static
-%token void
-%token main
-%token String
-%token System.out.println
-%token return
-%token int 
-%token if 
-%token for
-%token else
-%token while
-%token this 
-%token new
-%token boolean 
-%token length
-%token extends
+%token CLASS
+%token PUBLIC
+%token STATIC
+%token VOID
+%token MAIN
+%token STRING
+%token SYSTEMOUTPRINTLN
+%token RETURN
+%token INT
+%token IF
+%token FOR
+%token ELSE
+%token WHILE
+%token THIS
+%token NEW
+%token BOOLEAN
+%token LENGTH
+%token EXTENDS
 
 /* Literal tokens */
 %token LEFTBRACKET
@@ -78,51 +77,49 @@
 %token MINUS
 
 %% /* The grammar follows */
-Program : MainClass
- 	| MainClass ClassDeclaration   ;
+Program : MainClass { yylex.(*golex).stmts = append(yylex.(*golex).stmts, $1.ast) }
+ 	| MainClass ClassDeclaration  ;
 
-MainClass : class IDENTIFIER LEFTANGLEBRACKET public static void main LEFTPARENTHESIS String LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET
-ClassDeclaration : class IDENTIFIER Extension LEFTANGLEBRACKET  VarDeclaration   MethodDeclaration  RIGHTANGLEBRACKET
-Extension:
-	 | extends IDENTIFIER
-	 ;
-VarDeclaration :
-		| Type IDENTIFIER SEMICOLON VarDeclaration;
+MainClass : CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET
+ClassDeclaration : CLASS IDENTIFIER Extension LEFTANGLEBRACKET  VarDeclaration   MethodDeclaration  RIGHTANGLEBRACKET
+Extension: EXTENDS IDENTIFIER;
+VarDeclaration : Type IDENTIFIER SEMICOLON VarDeclaration
+		| Type IDENTIFIER SEMICOLON;
 Statement : LEFTANGLEBRACKET  Statement  RIGHTANGLEBRACKET
-            | if LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement else Statement
-            | while LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement
-            | System.out.println LEFTPARENTHESIS Expression RIGHTPARENTHESIS SEMICOLON
+            | IF LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement ELSE Statement
+            | WHILE LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement
+            | SYSTEMOUTPRINTLN LEFTPARENTHESIS Expression RIGHTPARENTHESIS SEMICOLON
             | IDENTIFIER EQUAL Expression SEMICOLON
             | IDENTIFIER LEFTBRACKET Expression RIGHTBRACKET EQUAL Expression SEMICOLON
             | ;
-Type: int LEFTBRACKET RIGHTBRACKET
-	| boolean
-	| int
+Type: INT LEFTBRACKET RIGHTBRACKET
+	| BOOLEAN
+	| INT
 	| IDENTIFIER ;
 MethodTypeDeclaration:
 		| Type IDENTIFIER
 		| Type IDENTIFIER COMMA MethodTypeDeclaration ;
-MethodDeclaration : public Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement return Expression SEMICOLON RIGHTANGLEBRACKET
-		  | public Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement return Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration
+MethodDeclaration : PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET
+		  | PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration
 		  | ;
-Expression :
+Expression : IDENTIFIER
 	    | Expression LOGICALAND Expression
 	    | Expression LESS Expression
 	    | Expression PLUS Expression
 	    | Expression MINUS Expression
 	    | Expression ASTERIX Expression
+            | INTEGER_LITERAL
+            | BOOLEAN_LITERAL
             |  Expression LEFTBRACKET Expression RIGHTBRACKET
-            |  Expression PERIOD  length
+            |  Expression PERIOD  LENGTH
             |  Expression PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS
-            |  INTEGER_LITERAL
-            |  BOOLEAN_LITERAL
-            |  IDENTIFIER
-            | this
-            | new int LEFTBRACKET Expression RIGHTBRACKET
-            | new IDENTIFIER LEFTPARENTHESIS RIGHTPARENTHESIS
+            | THIS
+            | NEW INT LEFTBRACKET Expression RIGHTBRACKET
+            | NEW IDENTIFIER LEFTPARENTHESIS RIGHTPARENTHESIS
             | BANG Expression
             | LEFTPARENTHESIS Expression RIGHTPARENTHESIS
        	    ;
 MethodExpressionSignature : Expression
 			  | MethodExpressionSignature COMMA Expression
 			  ;
+%%

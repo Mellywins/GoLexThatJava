@@ -38,16 +38,10 @@ func NewLexer() *lexmachine.Lexer {
 	lexer := lexmachine.NewLexer()
 
 	Tokens := []string{
-		"SPACE",
-		"TAB",
 		"BANG",
 		"INTEGER_LITERAL",
 		"BOOLEAN_LITERAL",
 		"IDENTIFIER",
-		"SINGLE_LINE_COMMENT",
-		"MULTI_LINE_COMMENT",
-		"BREAK_LINE",
-		"RESERVED_WORD",
 	}
 	ReservedWords := []string{
 		"class",
@@ -68,6 +62,26 @@ func NewLexer() *lexmachine.Lexer {
 		"boolean",
 		"length",
 		"extends",
+	}
+	ReservedWordsTokens := []string{
+		"CLASS",
+		"PUBLIC",
+		"STATIC",
+		"VOID",
+		"MAIN",
+		"STRING",
+		"SYSTEMOUTPRINTLN",
+		"RETURN",
+		"INT",
+		"IF",
+		"FOR",
+		"ELSE",
+		"WHILE",
+		"THIS",
+		"NEW",
+		"BOOLEAN",
+		"LENGTH",
+		"EXTENDS",
 	}
 	Literals := []string{
 		"[",
@@ -125,112 +139,104 @@ func NewLexer() *lexmachine.Lexer {
 		"EQUAL",
 		"MINUS",
 	}
-	Tokens = append(Tokens, ReservedWords...)
+	Tokens = append(Tokens, ReservedWordsTokens...)
 	Tokens = append(Tokens, LiteralTokens...)
 	Tokens = append(Tokens, OperatorTokens...)
 	TokenIds = make(map[string]int)
 	for i, tok := range Tokens {
 		TokenIds[tok] = i
+		fmt.Println(tok, ":", i)
+
 	}
+
 	// LEXER PATTERNS
-	lexer.Add([]byte(`	`), skip)
-	lexer.Add([]byte(` `), skip)
+	lexer.Add([]byte(`( |\t|\n)`), skip)
 	lexer.Add([]byte(`[!]`), token("BANG"))
 	lexer.Add([]byte(`[1-9][0-9]*`), token("INTEGER_LITERAL"))
 	lexer.Add([]byte(`true|false`), token("BOOLEAN_LITERAL"))
-	lexer.Add([]byte(`\(`), func(scan *lexmachine.Scanner, match *machines.Match) (interface{}, error) {
-		parenthesisCount := 1
-		match.EndLine = match.StartLine
-		match.EndColumn = match.StartColumn
-		for tc := scan.TC; tc < len(scan.Text)-1; tc++ {
-			tokenStr := scan.Text[tc]
-			match.EndColumn += 1
-			if scan.Text[tc] == '\n' {
-				match.EndLine += 1
-			}
-			if tokenStr == '(' {
-				parenthesisCount++
-			} else if tokenStr == ')' {
-				parenthesisCount--
-			}
-			if parenthesisCount == 0 {
-				return token("LEFTPARENTHESIS")(scan, match)
-			}
-		}
-		// fmt.Println("DEBUG LOG: ", "\n", "Parenthesis Count: ", parenthesisCount, "\n", "Match: ", match.TC, "\n", "Text Length", len(scan.Text))
-		return nil, fmt.Errorf(
-			"Error: Reached EOF without Unclosed Parenthesis: \"(\" starting at %d, (%d, %d)", match.TC, match.StartLine, match.StartColumn)
-	})
-	lexer.Add([]byte(`\{`), func(scan *lexmachine.Scanner, match *machines.Match) (interface{}, error) {
-		bracersCount := 1
-		match.EndLine = match.StartLine
-		match.EndColumn = match.StartColumn
-		for tc := scan.TC; tc < len(scan.Text); tc++ {
-			tokenStr := scan.Text[tc]
-			match.EndColumn += 1
-			if scan.Text[tc] == '\n' {
-				match.EndLine += 1
-			}
-			if tokenStr == '{' {
-				bracersCount++
-			} else if tokenStr == '}' {
-				bracersCount--
-			}
-			if bracersCount == 0 {
-				return token("LEFTANGLEBRACKET")(scan, match)
-			}
-		}
-		// fmt.Println("DEBUG LOG: ", "\n", "Parenthesis Count: ", parenthesisCount, "\n", "Match: ", match.TC, "\n", "Text Length", len(scan.Text))
-		return nil, fmt.Errorf(
-			"Error: Reached EOF without Unclosed bracket: \"{\" starting at %d, (%d, %d)", match.TC, match.StartLine, match.StartColumn)
-	})
+	// lexer.Add([]byte(`\(`), func(scan *lexmachine.Scanner, match *machines.Match) (interface{}, error) {
+	// 	parenthesisCount := 1
+	// 	match.EndLine = match.StartLine
+	// 	match.EndColumn = match.StartColumn
+	// 	for tc := scan.TC; tc < len(scan.Text)-1; tc++ {
+	// 		tokenStr := scan.Text[tc]
+	// 		match.EndColumn += 1
+	// 		if scan.Text[tc] == '\n' {
+	// 			match.EndLine += 1
+	// 		}
+	// 		if tokenStr == '(' {
+	// 			parenthesisCount++
+	// 		} else if tokenStr == ')' {
+	// 			parenthesisCount--
+	// 		}
+	// 		if parenthesisCount == 0 {
+	// 			return token("LEFTPARENTHESIS")(scan, match)
+	// 		}
+	// 	}
+	// 	// fmt.Println("DEBUG LOG: ", "\n", "Parenthesis Count: ", parenthesisCount, "\n", "Match: ", match.TC, "\n", "Text Length", len(scan.Text))
+	// 	return nil, fmt.Errorf(
+	// 		"Error: Reached EOF without Unclosed Parenthesis: \"(\" starting at %d, (%d, %d)", match.TC, match.StartLine, match.StartColumn)
+	// })
+	// lexer.Add([]byte(`\{`), func(scan *lexmachine.Scanner, match *machines.Match) (interface{}, error) {
+	// 	bracersCount := 1
+	// 	match.EndLine = match.StartLine
+	// 	match.EndColumn = match.StartColumn
+	// 	for tc := scan.TC; tc < len(scan.Text); tc++ {
+	// 		tokenStr := scan.Text[tc]
+	// 		match.EndColumn += 1
+	// 		if scan.Text[tc] == '\n' {
+	// 			match.EndLine += 1
+	// 		}
+	// 		if tokenStr == '{' {
+	// 			bracersCount++
+	// 		} else if tokenStr == '}' {
+	// 			bracersCount--
+	// 		}
+	// 		if bracersCount == 0 {
+	// 			return token("LEFTANGLEBRACKET")(scan, match)
+	// 		}
+	// 	}
+	// 	// fmt.Println("DEBUG LOG: ", "\n", "Parenthesis Count: ", parenthesisCount, "\n", "Match: ", match.TC, "\n", "Text Length", len(scan.Text))
+	// 	return nil, fmt.Errorf(
+	// 		"Error: Reached EOF without Unclosed bracket: \"{\" starting at %d, (%d, %d)", match.TC, match.StartLine, match.StartColumn)
+	// })
 	for i, lit := range Literals {
 		r := "\\" + strings.Join(strings.Split(lit, ""), "\\")
-		fmt.Println("Added token : ", r, "under token name: ", LiteralTokens[i])
 		lexer.Add([]byte(r), token(LiteralTokens[i]))
 	}
-	for _, name := range ReservedWords {
-		lexer.Add([]byte(name), token(name))
+	for i, name := range ReservedWords {
+		lexer.Add([]byte(name), token(ReservedWordsTokens[i]))
 	}
 	for i, op := range Operators {
 		formattedOp := "\\" + strings.Join(strings.Split(op, ""), "\\")
-		fmt.Println("Added token : ", formattedOp, "under token name: ", OperatorTokens[i])
 		lexer.Add([]byte(formattedOp), token(OperatorTokens[i]))
 	}
 
 	lexer.Add([]byte(`[A-Za-z_][A-Za-z0-9_]*`), token("IDENTIFIER"))
-	lexer.Add([]byte(`//[^\n]*\n?`), token("SINGLE_LINE_COMMENT"))
-	lexer.Add([]byte(`/\*([^*]|\r|\n|(\*+([^*/]|\r|\n)))*\*+/`), func(scan *lexmachine.Scanner, match *machines.Match) (interface{}, error) {
-
-		return token("MULTI_LINE_COMMENT")(scan, match)
-	})
-	lexer.Add([]byte(`\/\*`), func(scan *lexmachine.Scanner, match *machines.Match) (interface{}, error) {
-		commentIndicatorCount := 1
-		match.EndLine = match.StartLine
-		match.EndColumn = match.StartColumn
-		for tc := scan.TC; tc < len(scan.Text)-1; tc++ {
-			tokenStr := fmt.Sprintf("%b%b", scan.Text[tc], scan.Text[tc+1])
-			match.EndColumn += 1
-			if scan.Text[tc] == '\n' {
-				match.EndLine += 1
-			}
-			if tokenStr == "/*" {
-				commentIndicatorCount++
-			} else if tokenStr == "*/" {
-				commentIndicatorCount--
-			}
-			if commentIndicatorCount == 0 {
-				return token("MULTI_LINE_COMMENT")(scan, match)
-			}
-		}
-		return nil, fmt.Errorf(
-			"Error: Reached EOF without Unclosed comment starting at %d, (%d, %d)", match.TC, match.StartLine, match.StartColumn)
-	})
-	lexer.Add([]byte(`\n`), token("BREAK_LINE"))
-	lexer.Add([]byte(`.`), func(scan *lexmachine.Scanner, match *machines.Match) (interface{}, error) {
-
-		return nil, fmt.Errorf("error: uknown element found at %d, (%d,%d)", match.TC, match.StartLine, match.StartColumn)
-	})
+	lexer.Add([]byte(`//[^\n]*\n?`), skip)
+	lexer.Add([]byte(`/\*([^*]|\r|\n|(\*+([^*/]|\r|\n)))*\*+/`), skip)
+	// lexer.Add([]byte(`\/\*`), func(scan *lexmachine.Scanner, match *machines.Match) (interface{}, error) {
+	// 	commentIndicatorCount := 1
+	// 	match.EndLine = match.StartLine
+	// 	match.EndColumn = match.StartColumn
+	// 	for tc := scan.TC; tc < len(scan.Text)-1; tc++ {
+	// 		tokenStr := fmt.Sprintf("%b%b", scan.Text[tc], scan.Text[tc+1])
+	// 		match.EndColumn += 1
+	// 		if scan.Text[tc] == '\n' {
+	// 			match.EndLine += 1
+	// 		}
+	// 		if tokenStr == "/*" {
+	// 			commentIndicatorCount++
+	// 		} else if tokenStr == "*/" {
+	// 			commentIndicatorCount--
+	// 		}
+	// 		if commentIndicatorCount == 0 {
+	// 			return token("MULTI_LINE_COMMENT")(scan, match)
+	// 		}
+	// 	}
+	// 	return nil, fmt.Errorf(
+	// 		"Error: Reached EOF without Unclosed comment starting at %d, (%d, %d)", match.TC, match.StartLine, match.StartColumn)
+	// })
 	err := lexer.Compile()
 	must(err)
 
