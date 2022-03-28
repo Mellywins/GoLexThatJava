@@ -41,7 +41,6 @@ func (n *Node) String() string {
 	if n.Token != nil && string(n.Token.Lexeme) != n.Name {
 		parts = append(parts, fmt.Sprintf("%q", string(n.Token.Lexeme)))
 	}
-	fmt.Println("length ", len(n.Children))
 	for _, k := range n.Children {
 		parts = append(parts, k.String())
 	}

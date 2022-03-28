@@ -68,6 +68,8 @@ Statement: Expression Operator Expression
 
         $$.ast = NewNode("Statement", nil).AddKid($2.ast).AddKid($1.ast).AddKid($3.ast)
 
+        __yyfmt__.Printf("%s + %s",$1.token.Lexeme,$3.token.Lexeme)
+
         }
 ;
 Expression: INTEGER_LITERAL {$$.ast = NewNode("INTEGER_LITERAL",$1.token)}

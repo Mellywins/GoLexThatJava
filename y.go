@@ -122,7 +122,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyInitialStackSize = 16
 
-//line syn.y:78
+//line syn.y:80
 
 //line yacctab:1
 var yyExca = [...]int8{
@@ -530,22 +530,24 @@ yydefault:
 
 			yyVAL.ast = NewNode("Statement", nil).AddKid(yyDollar[2].ast).AddKid(yyDollar[1].ast).AddKid(yyDollar[3].ast)
 
+			__yyfmt__.Printf("%s + %s", yyDollar[1].token.Lexeme, yyDollar[3].token.Lexeme)
+
 		}
 	case 3:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line syn.y:73
+//line syn.y:75
 		{
 			yyVAL.ast = NewNode("INTEGER_LITERAL", yyDollar[1].token)
 		}
 	case 4:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line syn.y:75
+//line syn.y:77
 		{
 			yyVAL.ast = NewNode("PLUS", yyDollar[1].token)
 		}
 	case 5:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line syn.y:76
+//line syn.y:78
 		{
 			yyVAL.ast = NewNode("MINUS", yyDollar[1].token)
 		}
