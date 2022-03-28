@@ -1,7 +1,6 @@
 package lexical
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/timtadh/lexmachine"
@@ -145,7 +144,7 @@ func NewLexer() *lexmachine.Lexer {
 	TokenIds = make(map[string]int)
 	for i, tok := range Tokens {
 		TokenIds[tok] = i
-		fmt.Println(tok, ":", i)
+		//fmt.Println(tok, ":", i)
 
 	}
 

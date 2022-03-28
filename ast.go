@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
-	"strings"
-
 	"github.com/timtadh/lexmachine"
+	"strings"
 )
 
 type Node struct {
@@ -12,6 +11,14 @@ type Node struct {
 	Token    *lexmachine.Token
 	Children []*Node
 }
+
+const (
+	newLine      = "\n"
+	emptySpace   = "    "
+	middleItem   = "├── "
+	continueItem = "│   "
+	lastItem     = "└── "
+)
 
 func NewNode(name string, token *lexmachine.Token) *Node {
 	return &Node{
@@ -45,7 +52,76 @@ func (n *Node) String() string {
 		parts = append(parts, k.String())
 	}
 	if len(parts) > 1 {
-		return fmt.Sprintf("(%v)", strings.Join(parts, " "))
+		return fmt.Sprintf("%v", strings.Join(parts, " "))
 	}
 	return strings.Join(parts, " ")
+	//p := printer{}
+	//return p.Print(*n)
 }
+
+//
+//type printer struct {
+//}
+//type PrintableNode interface {
+//	Print(Node) string
+//}
+//
+//func (n *Node) Text() string {
+//	if n.Token == nil {
+//		return n.Name
+//	}
+//	return string(n.Token.Lexeme)
+//}
+//func (n *Node) Items() []*Node {
+//	return n.Children
+//}
+//
+//func (p *printer) printText(text string, spaces []bool, last bool) string {
+//	var result string
+//	for _, space := range spaces {
+//		if space {
+//			result += emptySpace
+//		} else {
+//			result += continueItem
+//		}
+//	}
+//
+//	indicator := middleItem
+//	if last {
+//		indicator = lastItem
+//	}
+//
+//	var out string
+//	lines := strings.Split(text, "\n")
+//	for i := range lines {
+//		text := lines[i]
+//		if i == 0 {
+//			out += result + indicator + text + newLine
+//			continue
+//		}
+//		if last {
+//			indicator = emptySpace
+//		} else {
+//			indicator = continueItem
+//		}
+//		out += result + indicator + text + newLine
+//	}
+//
+//	return out
+//}
+//
+//func (p *printer) printItems(t []*Node, spaces []bool) string {
+//	var result string
+//	for i, f := range t {
+//		last := i == len(t)-1
+//		result += p.printText(f.Text(), spaces, last)
+//		if len(f.Items()) > 0 {
+//			spacesChild := append(spaces, last)
+//			result += p.printItems(f.Items(), spacesChild)
+//		}
+//	}
+//	return result
+//}
+//func (p *printer) Print(t Node) string {
+//	return t.Text() + newLine + p.printItems(t.Items(), []bool{})
+//}

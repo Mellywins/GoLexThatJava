@@ -10,25 +10,16 @@
     package main
     import (
 	"github.com/timtadh/lexmachine"
-	"fmt"
     )
 %}
 %union{
     token *lexmachine.Token
     ast   *Node
 }
-/* Special tokens */
-%token SPACE
-%token TAB
 %token BANG
 %token INTEGER_LITERAL
 %token BOOLEAN_LITERAL
 %token IDENTIFIER
-%token SINGLE_LINE_COMMENT
-%token MULTI_LINE_COMMENT
-%token BREAK_LINE
-
-/* Reserved words tokens */
 %token CLASS
 %token PUBLIC
 %token STATIC
@@ -47,8 +38,6 @@
 %token BOOLEAN
 %token LENGTH
 %token EXTENDS
-
-/* Literal tokens */
 %token LEFTBRACKET
 %token RIGHTBRACKET
 %token LEFTANGLEBRACKET
@@ -59,8 +48,6 @@
 %token LEFTPARENTHESIS
 %token RIGHTPARENTHESIS
 %token PERIOD
-
-/* Operator tokens */
 %token PLUS
 %token ASTERIX
 %token DIVISION
@@ -78,20 +65,55 @@
 
 %% /* The grammar follows */
 Program : MainClass { yylex.(*golex).stmts = append(yylex.(*golex).stmts, $1.ast) }
- 	| MainClass ClassDeclaration  ;
+ 	| MainClass ClassDeclaration
+ 	{
+ 	yylex.(*golex).stmts=append(yylex.(*golex).stmts,$1.ast)
+ 	yylex.(*golex).stmts=append(yylex.(*golex).stmts,$2.ast)
+ 	} ;
 
 MainClass : CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET
+	{
+	$$.ast=NewNode("MAINCLASS: ",nil).
+	AddKid(NewNode("",$1.token)).
+	AddKid(NewNode("",$2.token)).
+	AddKid(NewNode("{",$3.token)).
+	AddKid(NewNode("",$4.token)).
+	AddKid(NewNode("",$5.token)).
+	AddKid(NewNode("",$6.token)).
+	AddKid(NewNode("",$7.token)).
+	AddKid(NewNode("(",$8.token)).
+	AddKid(NewNode("",$9.token)).
+	AddKid(NewNode("[",$10.token)).
+	AddKid(NewNode("]",$11.token)).
+	AddKid(NewNode("",$12.token)).
+	AddKid(NewNode(")",$13.token)).
+	AddKid(NewNode("{",$14.token)).
+	AddKid($15.ast).
+	AddKid(NewNode("}",$16.token)).
+	AddKid(NewNode("}",$16.token))
+
+
+	}
+;
 ClassDeclaration : CLASS IDENTIFIER Extension LEFTANGLEBRACKET  VarDeclaration   MethodDeclaration  RIGHTANGLEBRACKET
+{
+	**
+}
 Extension: EXTENDS IDENTIFIER;
 VarDeclaration : Type IDENTIFIER SEMICOLON VarDeclaration
 		| Type IDENTIFIER SEMICOLON;
-Statement : LEFTANGLEBRACKET  Statement  RIGHTANGLEBRACKET
+Statement : LEFTANGLEBRACKET  Statement  RIGHTANGLEBRACKET {
+		$$.ast=NewNode("bracketed statement",nil).
+			AddKid(NewNode("{",$1.token)).
+			AddKid($2.ast).
+			AddKid(NewNode("}",$3.token))
+		}
             | IF LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement ELSE Statement
             | WHILE LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement
             | SYSTEMOUTPRINTLN LEFTPARENTHESIS Expression RIGHTPARENTHESIS SEMICOLON
             | IDENTIFIER EQUAL Expression SEMICOLON
             | IDENTIFIER LEFTBRACKET Expression RIGHTBRACKET EQUAL Expression SEMICOLON
-            | ;
+            | {$$.ast=NewNode("empty statement content",nil) } ;
 Type: INT LEFTBRACKET RIGHTBRACKET
 	| BOOLEAN
 	| INT
