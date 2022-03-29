@@ -97,7 +97,7 @@ MainClass : CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENT
 ;
 ClassDeclaration : CLASS IDENTIFIER Extension LEFTANGLEBRACKET  VarDeclaration   MethodDeclaration  RIGHTANGLEBRACKET
 			{
-				$$.ast=NewNode("ClassDeclaration:", nil).
+					$$.ast= NewNode("<NewClassDeclaration>:", nil).
 					AddKid(NewNode("",$1.token)).
 					AddKid(NewNode("",$2.token)).
 					AddKid($3.ast).
@@ -105,8 +105,14 @@ ClassDeclaration : CLASS IDENTIFIER Extension LEFTANGLEBRACKET  VarDeclaration  
 					AddKid($5.ast).
 					AddKid($6.ast).
 					AddKid(NewNode("}",$7.token))
+
 			}
-		| ClassDeclaration CLASS IDENTIFIER Extension LEFTANGLEBRACKET  VarDeclaration   MethodDeclaration  RIGHTANGLEBRACKET
+		| ClassDeclaration ClassDeclaration
+			{
+				$$.ast=NewNode("<ExtraClassDeclarations>:", nil).
+					AddKid($1.ast).
+					AddKid($2.ast)
+			}
 			;
 Extension: EXTENDS IDENTIFIER
 		{
@@ -117,14 +123,13 @@ Extension: EXTENDS IDENTIFIER
 		}
 	| ;
 
-VarDeclaration : Type IDENTIFIER SEMICOLON VarDeclaration
+VarDeclaration : VarDeclaration VarDeclaration
  			{
- 			$$.ast=NewNode("",nil).
- 			AddKid($1.ast).
- 			AddKid(NewNode("",$2.token)).
- 			AddKid(NewNode("",$3.token)).
- 			AddKid($4.ast)
+ 			$$.ast=NewNode("<Variable definitions>:",nil).
+ 				AddKid($1.ast).
+ 				AddKid($2.ast)
  			 }
+
 		| Type IDENTIFIER SEMICOLON
 			{
 				$$.ast=NewNode("",nil).
@@ -132,7 +137,9 @@ VarDeclaration : Type IDENTIFIER SEMICOLON VarDeclaration
 				AddKid(NewNode("",$2.token)).
 				AddKid(NewNode("",$3.token))
 			}
+		| { $$.ast=nil }
 		;
+
 Statement : LEFTANGLEBRACKET  Statement  RIGHTANGLEBRACKET
 		{
 		$$.ast=NewNode("bracketed statement",nil).
@@ -141,10 +148,60 @@ Statement : LEFTANGLEBRACKET  Statement  RIGHTANGLEBRACKET
 			AddKid(NewNode("}",$3.token))
 		}
             | IF LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement ELSE Statement
+            	{
+            	$$.ast=NewNode("<If block>",nil).
+            		AddKid(NewNode("",$1.token)).
+            		AddKid(NewNode("(",$2.token)).
+            		AddKid($3.ast).
+            		AddKid(NewNode(")",$4.token)).
+            		AddKid($5.ast).
+            		AddKid(NewNode("",$6.token)).
+            		AddKid($7.ast)
+            	}
             | WHILE LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement
+            	{
+            	$$.ast=NewNode("<While block>",nil).
+            		AddKid(NewNode("",$1.token)).
+            		AddKid(NewNode("",$2.token)).
+            		AddKid($3.ast).
+            		AddKid(NewNode(")",$4.token)).
+            		AddKid($4.ast)
+
+            	}
             | SYSTEMOUTPRINTLN LEFTPARENTHESIS Expression RIGHTPARENTHESIS SEMICOLON
+            	{
+            		$$.ast=NewNode("<Print Statement>",nil).
+            			AddKid(NewNode("",$1.token)).
+            			AddKid(NewNode("",$2.token)).
+            			AddKid($3.ast).
+            			AddKid(NewNode(")",$4.token)).
+            			AddKid(NewNode("",$5.token))
+            	}
             | IDENTIFIER EQUAL Expression SEMICOLON
+            	{
+            		$$.ast=NewNode("<Affectation>",nil).
+            			AddKid(NewNode("",$1.token)).
+            			AddKid(NewNode("=",$2.token)).
+            			AddKid($3.ast).
+            			AddKid(NewNode("",$4.token))
+            	}
             | IDENTIFIER LEFTBRACKET Expression RIGHTBRACKET EQUAL Expression SEMICOLON
+            	{
+            	$$.ast=NewNode("<Array Affectation>",nil).
+            		AddKid(NewNode("",$1.token)).
+            		AddKid(NewNode("[",$2.token)).
+            		AddKid($3.ast).
+            		AddKid(NewNode("]",$4.token)).
+            		AddKid(NewNode("=",$5.token)).
+            		AddKid($6.ast).
+            		AddKid(NewNode("",$7.token))
+            	}
+            | Statement Statement
+            {
+		$$.ast=NewNode("<BlockOfStatements>:",nil).
+			AddKid($1.ast).
+			AddKid($2.ast)
+            }
             | {$$.ast=NewNode("empty statement content",nil) } ;
 Type: INT LEFTBRACKET RIGHTBRACKET { $$.ast=NewNode("int[]",$1.token)}
 	| BOOLEAN {$$.ast=NewNode("",$1.token)}
@@ -152,28 +209,159 @@ Type: INT LEFTBRACKET RIGHTBRACKET { $$.ast=NewNode("int[]",$1.token)}
 	| IDENTIFIER {$$.ast=NewNode("",$1.token)} ;
 MethodTypeDeclaration:
 		| Type IDENTIFIER
-		| Type IDENTIFIER COMMA MethodTypeDeclaration ;
+		{
+			$$.ast=NewNode("",nil).
+			AddKid($1.ast).
+			AddKid(NewNode("",$2.token))
+		}
+		|  Type IDENTIFIER COMMA MethodTypeDeclaration
+		{
+		$$.ast = NewNode("<Method input type>:",nil).
+			AddKid($1.ast).
+			AddKid(NewNode("",$2.token)).
+			AddKid(NewNode("",$3.token)).
+			AddKid($4.ast)
+		}
+		 ;
+
 MethodDeclaration : PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET
-		  | PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration
-		  | ;
+		  {
+		  $$.ast=NewNode("<MethodDeclaration>:",nil).
+			AddKid(NewNode("",$1.token)).
+			AddKid($2.ast).
+			AddKid(NewNode("",$3.token)).
+			AddKid(NewNode("(",$4.token)).
+			AddKid($5.ast).
+			AddKid(NewNode(")",$6.token)).
+			AddKid(NewNode("{",$7.token)).
+			AddKid($8.ast).
+			AddKid($9.ast).
+			AddKid(NewNode("",$10.token)).
+			AddKid($11.ast).
+			AddKid(NewNode(";",$12.token)).
+			AddKid(NewNode("}",$13.token))
+		  }
+		  | MethodDeclaration MethodDeclaration
+		  {
+		  	$$.ast=NewNode("<MethodDeclarations>:",nil).
+				AddKid($1.ast).
+				AddKid($2.ast)
+
+		  }
+		   ;
+
 Expression : IDENTIFIER
+		{
+		$$.ast=NewNode("",$1.token)
+		}
 	    | Expression LOGICALAND Expression
+	    	{
+	    	$$.ast=NewNode("&&",$2.token).
+	    		AddKid($1.ast).
+	    		AddKid($3.ast)
+	    	}
 	    | Expression LESS Expression
+	    	{
+	    	$$.ast=NewNode("<",$2.token).
+	    		AddKid($1.ast).
+	    		AddKid($3.ast)
+	    	}
 	    | Expression PLUS Expression
+	    	{
+	    	$$.ast=NewNode("+",$2.token).
+	    		AddKid($1.ast).
+	    		AddKid($3.ast)
+	    	}
 	    | Expression MINUS Expression
+	    	{
+	    	$$.ast=NewNode("+",$2.token).
+	    		AddKid($1.ast).
+	    		AddKid($3.ast)
+	    	}
 	    | Expression ASTERIX Expression
+	    	{
+	    	$$.ast=NewNode("*",$2.token).
+	    		AddKid($1.ast).
+	    		AddKid($3.ast)
+	    	}
             | INTEGER_LITERAL
+            	{
+            	$$.ast=NewNode("",$1.token)
+            	}
             | BOOLEAN_LITERAL
+            	{
+            	$$.ast=NewNode("",$1.token)
+            	}
             |  Expression LEFTBRACKET Expression RIGHTBRACKET
+            	{
+            	$$.ast=NewNode("",nil).
+            		AddKid($1.ast).
+            		AddKid(NewNode("[",$2.token)).
+            		AddKid($3.ast).
+            		AddKid(NewNode("]",$4.token))
+            	}
             |  Expression PERIOD  LENGTH
+            	{
+            	$$.ast=NewNode("<PeriodAccess>:",nil).
+            		AddKid($1.ast).
+            		AddKid(NewNode(".",$2.token)).
+            		AddKid(NewNode("",$3.token))
+            	}
             |  Expression PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS
+            	{
+            		$$.ast=NewNode("<AccessedFunction>", nil).
+            			AddKid($1.ast).
+            			AddKid(NewNode(".",$2.token)).
+            			AddKid(NewNode("",$3.token)).
+            			AddKid(NewNode("(",$4.token)).
+            			AddKid($5.ast).
+            			AddKid(NewNode(")",$6.token))
+            	}
             | THIS
+            	{
+            	$$.ast=NewNode("",$1.token)
+            	}
             | NEW INT LEFTBRACKET Expression RIGHTBRACKET
+            	{
+            		$$.ast=NewNode("",nil).
+            			AddKid(NewNode("",$1.token)).
+            			AddKid(NewNode("",$2.token)).
+            			AddKid(NewNode("[",$3.token)).
+            			AddKid($4.ast).
+            			AddKid(NewNode("]",$5.token))
+            	}
             | NEW IDENTIFIER LEFTPARENTHESIS RIGHTPARENTHESIS
+            	{
+            		$$.ast=NewNode("<Instantiation>:",nil).
+            			AddKid(NewNode("",$1.token)).
+            			AddKid(NewNode("",$2.token)).
+            			AddKid(NewNode("(",$3.token)).
+            			AddKid(NewNode(")",$4.token))
+            	}
             | BANG Expression
+            	{
+            		$$.ast=NewNode("<NOT!>:",nil).
+            			AddKid(NewNode("!",$1.token)).
+            			AddKid($2.ast)
+            	}
             | LEFTPARENTHESIS Expression RIGHTPARENTHESIS
+            	{
+            	$$.ast=NewNode("<ParenthesisedExpression>",nil).
+            		AddKid(NewNode("(",$1.token)).
+            		AddKid($2.ast).
+            		AddKid(NewNode(")",$3.token))
+            	}
        	    ;
 MethodExpressionSignature : Expression
+				{
+				$$.ast=$1.ast
+				}
 			  | MethodExpressionSignature COMMA Expression
+			  	{
+			  	$$.ast=NewNode("<MultiParametersMethodSignature>",nil).
+			  		AddKid($1.ast).
+			  		AddKid(NewNode(".",$2.token)).
+			  		AddKid($3.ast)
+			  	}
 			  ;
 %%

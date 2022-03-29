@@ -33,11 +33,12 @@ state 3
 
 state 4
 	Program:  MainClass ClassDeclaration.    (2)
-	ClassDeclaration:  ClassDeclaration.CLASS IDENTIFIER Extension LEFTANGLEBRACKET VarDeclaration MethodDeclaration RIGHTANGLEBRACKET 
+	ClassDeclaration:  ClassDeclaration.ClassDeclaration 
 
-	CLASS  shift 7
+	CLASS  shift 5
 	.  reduce 2 (src line 68)
 
+	ClassDeclaration  goto 7
 
 state 5
 	ClassDeclaration:  CLASS.IDENTIFIER Extension LEFTANGLEBRACKET VarDeclaration MethodDeclaration RIGHTANGLEBRACKET 
@@ -53,558 +54,650 @@ state 6
 	.  error
 
 
+7: shift/reduce conflict (shift 5(0), red'n 5(0)) on CLASS
 state 7
-	ClassDeclaration:  ClassDeclaration CLASS.IDENTIFIER Extension LEFTANGLEBRACKET VarDeclaration MethodDeclaration RIGHTANGLEBRACKET 
+	ClassDeclaration:  ClassDeclaration.ClassDeclaration 
+	ClassDeclaration:  ClassDeclaration ClassDeclaration.    (5)
 
-	IDENTIFIER  shift 10
-	.  error
+	CLASS  shift 5
+	.  reduce 5 (src line 110)
 
+	ClassDeclaration  goto 7
 
 state 8
 	ClassDeclaration:  CLASS IDENTIFIER.Extension LEFTANGLEBRACKET VarDeclaration MethodDeclaration RIGHTANGLEBRACKET 
 	Extension: .    (7)
 
-	EXTENDS  shift 12
-	.  reduce 7 (src line 118)
+	EXTENDS  shift 11
+	.  reduce 7 (src line 124)
 
-	Extension  goto 11
+	Extension  goto 10
 
 state 9
 	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET.PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
 
-	PUBLIC  shift 13
+	PUBLIC  shift 12
 	.  error
 
 
 state 10
-	ClassDeclaration:  ClassDeclaration CLASS IDENTIFIER.Extension LEFTANGLEBRACKET VarDeclaration MethodDeclaration RIGHTANGLEBRACKET 
-	Extension: .    (7)
-
-	EXTENDS  shift 12
-	.  reduce 7 (src line 118)
-
-	Extension  goto 14
-
-state 11
 	ClassDeclaration:  CLASS IDENTIFIER Extension.LEFTANGLEBRACKET VarDeclaration MethodDeclaration RIGHTANGLEBRACKET 
 
-	LEFTANGLEBRACKET  shift 15
+	LEFTANGLEBRACKET  shift 13
+	.  error
+
+
+state 11
+	Extension:  EXTENDS.IDENTIFIER 
+
+	IDENTIFIER  shift 14
 	.  error
 
 
 state 12
-	Extension:  EXTENDS.IDENTIFIER 
-
-	IDENTIFIER  shift 16
-	.  error
-
-
-state 13
 	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC.STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
 
-	STATIC  shift 17
+	STATIC  shift 15
 	.  error
 
+
+13: shift/reduce conflict (shift 20(0), red'n 10(0)) on IDENTIFIER
+13: shift/reduce conflict (shift 18(0), red'n 10(0)) on INT
+13: shift/reduce conflict (shift 19(0), red'n 10(0)) on BOOLEAN
+state 13
+	ClassDeclaration:  CLASS IDENTIFIER Extension LEFTANGLEBRACKET.VarDeclaration MethodDeclaration RIGHTANGLEBRACKET 
+	VarDeclaration: .    (10)
+
+	IDENTIFIER  shift 20
+	INT  shift 18
+	BOOLEAN  shift 19
+	.  reduce 10 (src line 140)
+
+	VarDeclaration  goto 16
+	Type  goto 17
 
 state 14
-	ClassDeclaration:  ClassDeclaration CLASS IDENTIFIER Extension.LEFTANGLEBRACKET VarDeclaration MethodDeclaration RIGHTANGLEBRACKET 
+	Extension:  EXTENDS IDENTIFIER.    (6)
 
-	LEFTANGLEBRACKET  shift 18
-	.  error
+	.  reduce 6 (src line 117)
 
 
 state 15
-	ClassDeclaration:  CLASS IDENTIFIER Extension LEFTANGLEBRACKET.VarDeclaration MethodDeclaration RIGHTANGLEBRACKET 
-
-	IDENTIFIER  shift 23
-	INT  shift 21
-	BOOLEAN  shift 22
-	.  error
-
-	VarDeclaration  goto 19
-	Type  goto 20
-
-state 16
-	Extension:  EXTENDS IDENTIFIER.    (6)
-
-	.  reduce 6 (src line 111)
-
-
-state 17
 	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC.VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
 
-	VOID  shift 24
+	VOID  shift 21
+	.  error
+
+
+16: shift/reduce conflict (shift 20(0), red'n 10(0)) on IDENTIFIER
+16: shift/reduce conflict (shift 24(0), red'n 10(0)) on PUBLIC
+16: shift/reduce conflict (shift 18(0), red'n 10(0)) on INT
+16: shift/reduce conflict (shift 19(0), red'n 10(0)) on BOOLEAN
+state 16
+	ClassDeclaration:  CLASS IDENTIFIER Extension LEFTANGLEBRACKET VarDeclaration.MethodDeclaration RIGHTANGLEBRACKET 
+	VarDeclaration:  VarDeclaration.VarDeclaration 
+	VarDeclaration: .    (10)
+
+	IDENTIFIER  shift 20
+	PUBLIC  shift 24
+	INT  shift 18
+	BOOLEAN  shift 19
+	.  error
+
+	VarDeclaration  goto 23
+	MethodDeclaration  goto 22
+	Type  goto 17
+
+state 17
+	VarDeclaration:  Type.IDENTIFIER SEMICOLON 
+
+	IDENTIFIER  shift 25
 	.  error
 
 
 state 18
-	ClassDeclaration:  ClassDeclaration CLASS IDENTIFIER Extension LEFTANGLEBRACKET.VarDeclaration MethodDeclaration RIGHTANGLEBRACKET 
+	Type:  INT.LEFTBRACKET RIGHTBRACKET 
+	Type:  INT.    (21)
 
-	IDENTIFIER  shift 23
-	INT  shift 21
-	BOOLEAN  shift 22
-	.  error
+	LEFTBRACKET  shift 26
+	.  reduce 21 (src line 208)
 
-	VarDeclaration  goto 25
-	Type  goto 20
 
 state 19
-	ClassDeclaration:  CLASS IDENTIFIER Extension LEFTANGLEBRACKET VarDeclaration.MethodDeclaration RIGHTANGLEBRACKET 
-	MethodDeclaration: .    (26)
+	Type:  BOOLEAN.    (20)
 
-	PUBLIC  shift 27
-	.  reduce 26 (src line 158)
+	.  reduce 20 (src line 207)
 
-	MethodDeclaration  goto 26
 
 state 20
-	VarDeclaration:  Type.IDENTIFIER SEMICOLON VarDeclaration 
-	VarDeclaration:  Type.IDENTIFIER SEMICOLON 
+	Type:  IDENTIFIER.    (22)
 
-	IDENTIFIER  shift 28
-	.  error
+	.  reduce 22 (src line 209)
 
 
 state 21
-	Type:  INT.LEFTBRACKET RIGHTBRACKET 
-	Type:  INT.    (19)
-
-	LEFTBRACKET  shift 29
-	.  reduce 19 (src line 151)
-
-
-state 22
-	Type:  BOOLEAN.    (18)
-
-	.  reduce 18 (src line 150)
-
-
-state 23
-	Type:  IDENTIFIER.    (20)
-
-	.  reduce 20 (src line 152)
-
-
-state 24
 	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID.MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
 
-	MAIN  shift 30
+	MAIN  shift 27
 	.  error
 
 
+state 22
+	ClassDeclaration:  CLASS IDENTIFIER Extension LEFTANGLEBRACKET VarDeclaration MethodDeclaration.RIGHTANGLEBRACKET 
+	MethodDeclaration:  MethodDeclaration.MethodDeclaration 
+
+	PUBLIC  shift 24
+	RIGHTANGLEBRACKET  shift 28
+	.  error
+
+	MethodDeclaration  goto 29
+
+23: shift/reduce conflict (shift 20(0), red'n 8(0)) on IDENTIFIER
+23: shift/reduce conflict (shift 18(0), red'n 8(0)) on INT
+23: shift/reduce conflict (shift 19(0), red'n 8(0)) on BOOLEAN
+23: shift/reduce conflict (shift 20(0), red'n 10(0)) on IDENTIFIER
+ 23: reduce/reduce conflict  (red'ns 8 and 10) on PUBLIC
+ 23: reduce/reduce conflict  (red'ns 8 and 10) on SYSTEMOUTPRINTLN
+ 23: reduce/reduce conflict  (red'ns 8 and 10) on RETURN
+23: shift/reduce conflict (shift 18(0), red'n 10(0)) on INT
+ 23: reduce/reduce conflict  (red'ns 8 and 10) on IF
+ 23: reduce/reduce conflict  (red'ns 8 and 10) on WHILE
+23: shift/reduce conflict (shift 19(0), red'n 10(0)) on BOOLEAN
+ 23: reduce/reduce conflict  (red'ns 8 and 10) on LEFTANGLEBRACKET
+state 23
+	VarDeclaration:  VarDeclaration.VarDeclaration 
+	VarDeclaration:  VarDeclaration VarDeclaration.    (8)
+	VarDeclaration: .    (10)
+
+	IDENTIFIER  shift 20
+	INT  shift 18
+	BOOLEAN  shift 19
+	.  reduce 8 (src line 126)
+
+	VarDeclaration  goto 23
+	Type  goto 17
+
+state 24
+	MethodDeclaration:  PUBLIC.Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
+
+	IDENTIFIER  shift 20
+	INT  shift 18
+	BOOLEAN  shift 19
+	.  error
+
+	Type  goto 30
+
 state 25
-	ClassDeclaration:  ClassDeclaration CLASS IDENTIFIER Extension LEFTANGLEBRACKET VarDeclaration.MethodDeclaration RIGHTANGLEBRACKET 
-	MethodDeclaration: .    (26)
+	VarDeclaration:  Type IDENTIFIER.SEMICOLON 
 
-	PUBLIC  shift 27
-	.  reduce 26 (src line 158)
+	SEMICOLON  shift 31
+	.  error
 
-	MethodDeclaration  goto 31
 
 state 26
-	ClassDeclaration:  CLASS IDENTIFIER Extension LEFTANGLEBRACKET VarDeclaration MethodDeclaration.RIGHTANGLEBRACKET 
+	Type:  INT LEFTBRACKET.RIGHTBRACKET 
 
-	RIGHTANGLEBRACKET  shift 32
+	RIGHTBRACKET  shift 32
 	.  error
 
 
 state 27
-	MethodDeclaration:  PUBLIC.Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
-	MethodDeclaration:  PUBLIC.Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration 
-
-	IDENTIFIER  shift 23
-	INT  shift 21
-	BOOLEAN  shift 22
-	.  error
-
-	Type  goto 33
-
-state 28
-	VarDeclaration:  Type IDENTIFIER.SEMICOLON VarDeclaration 
-	VarDeclaration:  Type IDENTIFIER.SEMICOLON 
-
-	SEMICOLON  shift 34
-	.  error
-
-
-state 29
-	Type:  INT LEFTBRACKET.RIGHTBRACKET 
-
-	RIGHTBRACKET  shift 35
-	.  error
-
-
-state 30
 	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN.LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
 
-	LEFTPARENTHESIS  shift 36
+	LEFTPARENTHESIS  shift 33
 	.  error
 
 
-state 31
-	ClassDeclaration:  ClassDeclaration CLASS IDENTIFIER Extension LEFTANGLEBRACKET VarDeclaration MethodDeclaration.RIGHTANGLEBRACKET 
-
-	RIGHTANGLEBRACKET  shift 37
-	.  error
-
-
-state 32
+state 28
 	ClassDeclaration:  CLASS IDENTIFIER Extension LEFTANGLEBRACKET VarDeclaration MethodDeclaration RIGHTANGLEBRACKET.    (4)
 
 	.  reduce 4 (src line 98)
 
 
-state 33
-	MethodDeclaration:  PUBLIC Type.IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
-	MethodDeclaration:  PUBLIC Type.IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration 
+29: shift/reduce conflict (shift 24(0), red'n 27(0)) on PUBLIC
+state 29
+	MethodDeclaration:  MethodDeclaration.MethodDeclaration 
+	MethodDeclaration:  MethodDeclaration MethodDeclaration.    (27)
 
-	IDENTIFIER  shift 38
+	PUBLIC  shift 24
+	.  reduce 27 (src line 244)
+
+	MethodDeclaration  goto 29
+
+state 30
+	MethodDeclaration:  PUBLIC Type.IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
+
+	IDENTIFIER  shift 34
 	.  error
 
 
-34: shift/reduce conflict (shift 23(0), red'n 9(0)) on IDENTIFIER
-state 34
-	VarDeclaration:  Type IDENTIFIER SEMICOLON.VarDeclaration 
+state 31
 	VarDeclaration:  Type IDENTIFIER SEMICOLON.    (9)
 
-	IDENTIFIER  shift 23
-	INT  shift 21
-	BOOLEAN  shift 22
-	.  reduce 9 (src line 128)
+	.  reduce 9 (src line 133)
 
-	VarDeclaration  goto 39
-	Type  goto 20
+
+state 32
+	Type:  INT LEFTBRACKET RIGHTBRACKET.    (19)
+
+	.  reduce 19 (src line 206)
+
+
+state 33
+	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS.STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
+
+	STRING  shift 35
+	.  error
+
+
+state 34
+	MethodDeclaration:  PUBLIC Type IDENTIFIER.LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
+
+	LEFTPARENTHESIS  shift 36
+	.  error
+
 
 state 35
-	Type:  INT LEFTBRACKET RIGHTBRACKET.    (17)
+	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING.LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
 
-	.  reduce 17 (src line 149)
+	LEFTBRACKET  shift 37
+	.  error
 
 
 state 36
-	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS.STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
+	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS.MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
+	MethodTypeDeclaration: .    (23)
 
-	STRING  shift 40
+	IDENTIFIER  shift 20
+	INT  shift 18
+	BOOLEAN  shift 19
+	.  reduce 23 (src line 210)
+
+	Type  goto 39
+	MethodTypeDeclaration  goto 38
+
+state 37
+	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET.RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
+
+	RIGHTBRACKET  shift 40
 	.  error
 
 
-state 37
-	ClassDeclaration:  ClassDeclaration CLASS IDENTIFIER Extension LEFTANGLEBRACKET VarDeclaration MethodDeclaration RIGHTANGLEBRACKET.    (5)
-
-	.  reduce 5 (src line 109)
-
-
 state 38
-	MethodDeclaration:  PUBLIC Type IDENTIFIER.LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
-	MethodDeclaration:  PUBLIC Type IDENTIFIER.LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration 
+	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration.RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
 
-	LEFTPARENTHESIS  shift 41
+	RIGHTPARENTHESIS  shift 41
 	.  error
 
 
 state 39
-	VarDeclaration:  Type IDENTIFIER SEMICOLON VarDeclaration.    (8)
+	MethodTypeDeclaration:  Type.IDENTIFIER 
+	MethodTypeDeclaration:  Type.IDENTIFIER COMMA MethodTypeDeclaration 
 
-	.  reduce 8 (src line 120)
+	IDENTIFIER  shift 42
+	.  error
 
 
 state 40
-	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING.LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
+	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET.IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
 
-	LEFTBRACKET  shift 42
+	IDENTIFIER  shift 43
 	.  error
 
 
 state 41
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS.MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS.MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration 
-	MethodTypeDeclaration: .    (21)
+	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS.LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
 
-	IDENTIFIER  shift 23
-	INT  shift 21
-	BOOLEAN  shift 22
-	.  reduce 21 (src line 153)
-
-	Type  goto 44
-	MethodTypeDeclaration  goto 43
-
-state 42
-	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET.RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
-
-	RIGHTBRACKET  shift 45
+	LEFTANGLEBRACKET  shift 44
 	.  error
 
 
+state 42
+	MethodTypeDeclaration:  Type IDENTIFIER.    (24)
+	MethodTypeDeclaration:  Type IDENTIFIER.COMMA MethodTypeDeclaration 
+
+	COMMA  shift 45
+	.  reduce 24 (src line 211)
+
+
 state 43
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration.RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration.RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration 
+	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER.RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
 
 	RIGHTPARENTHESIS  shift 46
 	.  error
 
 
+44: shift/reduce conflict (shift 20(0), red'n 10(0)) on IDENTIFIER
+44: shift/reduce conflict (shift 18(0), red'n 10(0)) on INT
+44: shift/reduce conflict (shift 19(0), red'n 10(0)) on BOOLEAN
 state 44
-	MethodTypeDeclaration:  Type.IDENTIFIER 
-	MethodTypeDeclaration:  Type.IDENTIFIER COMMA MethodTypeDeclaration 
+	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET.VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
+	VarDeclaration: .    (10)
 
-	IDENTIFIER  shift 47
-	.  error
+	IDENTIFIER  shift 20
+	INT  shift 18
+	BOOLEAN  shift 19
+	.  reduce 10 (src line 140)
 
+	VarDeclaration  goto 47
+	Type  goto 17
 
 state 45
-	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET.IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
+	MethodTypeDeclaration:  Type IDENTIFIER COMMA.MethodTypeDeclaration 
+	MethodTypeDeclaration: .    (23)
 
-	IDENTIFIER  shift 48
-	.  error
+	IDENTIFIER  shift 20
+	INT  shift 18
+	BOOLEAN  shift 19
+	.  reduce 23 (src line 210)
 
+	Type  goto 39
+	MethodTypeDeclaration  goto 48
 
 state 46
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS.LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS.LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration 
+	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS.LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
 
 	LEFTANGLEBRACKET  shift 49
 	.  error
 
 
+47: shift/reduce conflict (shift 55(0), red'n 10(0)) on IDENTIFIER
+47: shift/reduce conflict (shift 54(0), red'n 10(0)) on SYSTEMOUTPRINTLN
+47: shift/reduce conflict (shift 18(0), red'n 10(0)) on INT
+47: shift/reduce conflict (shift 52(0), red'n 10(0)) on IF
+47: shift/reduce conflict (shift 53(0), red'n 10(0)) on WHILE
+47: shift/reduce conflict (shift 19(0), red'n 10(0)) on BOOLEAN
+47: shift/reduce conflict (shift 51(0), red'n 10(0)) on LEFTANGLEBRACKET
+47: shift/reduce conflict (shift 55(0), red'n 18(0)) on IDENTIFIER
+47: shift/reduce conflict (shift 54(0), red'n 18(0)) on SYSTEMOUTPRINTLN
+ 47: reduce/reduce conflict  (red'ns 10 and 18) on RETURN
+47: shift/reduce conflict (shift 52(0), red'n 18(0)) on IF
+47: shift/reduce conflict (shift 53(0), red'n 18(0)) on WHILE
+47: shift/reduce conflict (shift 51(0), red'n 18(0)) on LEFTANGLEBRACKET
 state 47
-	MethodTypeDeclaration:  Type IDENTIFIER.    (22)
-	MethodTypeDeclaration:  Type IDENTIFIER.COMMA MethodTypeDeclaration 
+	VarDeclaration:  VarDeclaration.VarDeclaration 
+	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration.Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
+	VarDeclaration: .    (10)
+	Statement: .    (18)
 
-	COMMA  shift 50
-	.  reduce 22 (src line 154)
+	IDENTIFIER  shift 55
+	SYSTEMOUTPRINTLN  shift 54
+	INT  shift 18
+	IF  shift 52
+	WHILE  shift 53
+	BOOLEAN  shift 19
+	LEFTANGLEBRACKET  shift 51
+	.  reduce 10 (src line 140)
 
+	Statement  goto 50
+	VarDeclaration  goto 23
+	Type  goto 17
 
 state 48
-	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER.RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
+	MethodTypeDeclaration:  Type IDENTIFIER COMMA MethodTypeDeclaration.    (25)
 
-	RIGHTPARENTHESIS  shift 51
-	.  error
+	.  reduce 25 (src line 217)
 
 
+49: shift/reduce conflict (shift 57(0), red'n 18(0)) on IDENTIFIER
+49: shift/reduce conflict (shift 54(0), red'n 18(0)) on SYSTEMOUTPRINTLN
+49: shift/reduce conflict (shift 52(0), red'n 18(0)) on IF
+49: shift/reduce conflict (shift 53(0), red'n 18(0)) on WHILE
+49: shift/reduce conflict (shift 51(0), red'n 18(0)) on LEFTANGLEBRACKET
 state 49
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET.VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET.VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration 
+	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET.Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
+	Statement: .    (18)
 
-	IDENTIFIER  shift 23
-	INT  shift 21
-	BOOLEAN  shift 22
-	.  error
+	IDENTIFIER  shift 57
+	SYSTEMOUTPRINTLN  shift 54
+	IF  shift 52
+	WHILE  shift 53
+	LEFTANGLEBRACKET  shift 51
+	.  reduce 18 (src line 205)
 
-	VarDeclaration  goto 52
-	Type  goto 20
+	Statement  goto 56
 
+50: shift/reduce conflict (shift 57(0), red'n 18(0)) on IDENTIFIER
+50: shift/reduce conflict (shift 54(0), red'n 18(0)) on SYSTEMOUTPRINTLN
+50: shift/reduce conflict (shift 59(0), red'n 18(0)) on RETURN
+50: shift/reduce conflict (shift 52(0), red'n 18(0)) on IF
+50: shift/reduce conflict (shift 53(0), red'n 18(0)) on WHILE
+50: shift/reduce conflict (shift 51(0), red'n 18(0)) on LEFTANGLEBRACKET
 state 50
-	MethodTypeDeclaration:  Type IDENTIFIER COMMA.MethodTypeDeclaration 
-	MethodTypeDeclaration: .    (21)
+	Statement:  Statement.Statement 
+	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement.RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
+	Statement: .    (18)
 
-	IDENTIFIER  shift 23
-	INT  shift 21
-	BOOLEAN  shift 22
-	.  reduce 21 (src line 153)
-
-	Type  goto 44
-	MethodTypeDeclaration  goto 53
-
-state 51
-	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS.LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
-
-	LEFTANGLEBRACKET  shift 54
+	IDENTIFIER  shift 57
+	SYSTEMOUTPRINTLN  shift 54
+	RETURN  shift 59
+	IF  shift 52
+	WHILE  shift 53
+	LEFTANGLEBRACKET  shift 51
 	.  error
 
+	Statement  goto 58
+
+51: shift/reduce conflict (shift 57(0), red'n 18(0)) on IDENTIFIER
+51: shift/reduce conflict (shift 54(0), red'n 18(0)) on SYSTEMOUTPRINTLN
+51: shift/reduce conflict (shift 52(0), red'n 18(0)) on IF
+51: shift/reduce conflict (shift 53(0), red'n 18(0)) on WHILE
+51: shift/reduce conflict (shift 51(0), red'n 18(0)) on LEFTANGLEBRACKET
+state 51
+	Statement:  LEFTANGLEBRACKET.Statement RIGHTANGLEBRACKET 
+	Statement: .    (18)
+
+	IDENTIFIER  shift 57
+	SYSTEMOUTPRINTLN  shift 54
+	IF  shift 52
+	WHILE  shift 53
+	LEFTANGLEBRACKET  shift 51
+	.  reduce 18 (src line 205)
+
+	Statement  goto 60
 
 state 52
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration.Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration.Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration 
-	Statement: .    (16)
+	Statement:  IF.LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement ELSE Statement 
 
-	IDENTIFIER  shift 60
-	SYSTEMOUTPRINTLN  shift 59
-	IF  shift 57
-	WHILE  shift 58
-	LEFTANGLEBRACKET  shift 56
-	.  reduce 16 (src line 148)
+	LEFTPARENTHESIS  shift 61
+	.  error
 
-	Statement  goto 55
 
 state 53
-	MethodTypeDeclaration:  Type IDENTIFIER COMMA MethodTypeDeclaration.    (23)
+	Statement:  WHILE.LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement 
 
-	.  reduce 23 (src line 155)
+	LEFTPARENTHESIS  shift 62
+	.  error
 
 
 state 54
-	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET.Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
-	Statement: .    (16)
-
-	IDENTIFIER  shift 60
-	SYSTEMOUTPRINTLN  shift 59
-	IF  shift 57
-	WHILE  shift 58
-	LEFTANGLEBRACKET  shift 56
-	.  reduce 16 (src line 148)
-
-	Statement  goto 61
-
-state 55
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement.RETURN Expression SEMICOLON RIGHTANGLEBRACKET 
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement.RETURN Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration 
-
-	RETURN  shift 62
-	.  error
-
-
-state 56
-	Statement:  LEFTANGLEBRACKET.Statement RIGHTANGLEBRACKET 
-	Statement: .    (16)
-
-	IDENTIFIER  shift 60
-	SYSTEMOUTPRINTLN  shift 59
-	IF  shift 57
-	WHILE  shift 58
-	LEFTANGLEBRACKET  shift 56
-	.  reduce 16 (src line 148)
-
-	Statement  goto 63
-
-state 57
-	Statement:  IF.LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement ELSE Statement 
-
-	LEFTPARENTHESIS  shift 64
-	.  error
-
-
-state 58
-	Statement:  WHILE.LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement 
-
-	LEFTPARENTHESIS  shift 65
-	.  error
-
-
-state 59
 	Statement:  SYSTEMOUTPRINTLN.LEFTPARENTHESIS Expression RIGHTPARENTHESIS SEMICOLON 
 
-	LEFTPARENTHESIS  shift 66
+	LEFTPARENTHESIS  shift 63
 	.  error
 
 
-state 60
+state 55
+	Statement:  IDENTIFIER.EQUAL Expression SEMICOLON 
+	Statement:  IDENTIFIER.LEFTBRACKET Expression RIGHTBRACKET EQUAL Expression SEMICOLON 
+	Type:  IDENTIFIER.    (22)
+
+	LEFTBRACKET  shift 65
+	EQUAL  shift 64
+	.  reduce 22 (src line 209)
+
+
+56: shift/reduce conflict (shift 57(0), red'n 18(0)) on IDENTIFIER
+56: shift/reduce conflict (shift 54(0), red'n 18(0)) on SYSTEMOUTPRINTLN
+56: shift/reduce conflict (shift 52(0), red'n 18(0)) on IF
+56: shift/reduce conflict (shift 53(0), red'n 18(0)) on WHILE
+56: shift/reduce conflict (shift 51(0), red'n 18(0)) on LEFTANGLEBRACKET
+56: shift/reduce conflict (shift 66(0), red'n 18(0)) on RIGHTANGLEBRACKET
+state 56
+	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement.RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
+	Statement:  Statement.Statement 
+	Statement: .    (18)
+
+	IDENTIFIER  shift 57
+	SYSTEMOUTPRINTLN  shift 54
+	IF  shift 52
+	WHILE  shift 53
+	LEFTANGLEBRACKET  shift 51
+	RIGHTANGLEBRACKET  shift 66
+	.  error
+
+	Statement  goto 58
+
+state 57
 	Statement:  IDENTIFIER.EQUAL Expression SEMICOLON 
 	Statement:  IDENTIFIER.LEFTBRACKET Expression RIGHTBRACKET EQUAL Expression SEMICOLON 
 
-	LEFTBRACKET  shift 68
-	EQUAL  shift 67
+	LEFTBRACKET  shift 65
+	EQUAL  shift 64
 	.  error
 
+
+58: shift/reduce conflict (shift 57(0), red'n 17(0)) on IDENTIFIER
+58: shift/reduce conflict (shift 54(0), red'n 17(0)) on SYSTEMOUTPRINTLN
+58: shift/reduce conflict (shift 52(0), red'n 17(0)) on IF
+58: shift/reduce conflict (shift 53(0), red'n 17(0)) on WHILE
+58: shift/reduce conflict (shift 51(0), red'n 17(0)) on LEFTANGLEBRACKET
+58: shift/reduce conflict (shift 57(0), red'n 18(0)) on IDENTIFIER
+58: shift/reduce conflict (shift 54(0), red'n 18(0)) on SYSTEMOUTPRINTLN
+ 58: reduce/reduce conflict  (red'ns 17 and 18) on RETURN
+58: shift/reduce conflict (shift 52(0), red'n 18(0)) on IF
+ 58: reduce/reduce conflict  (red'ns 17 and 18) on ELSE
+58: shift/reduce conflict (shift 53(0), red'n 18(0)) on WHILE
+58: shift/reduce conflict (shift 51(0), red'n 18(0)) on LEFTANGLEBRACKET
+ 58: reduce/reduce conflict  (red'ns 17 and 18) on RIGHTANGLEBRACKET
+state 58
+	Statement:  Statement.Statement 
+	Statement:  Statement Statement.    (17)
+	Statement: .    (18)
+
+	IDENTIFIER  shift 57
+	SYSTEMOUTPRINTLN  shift 54
+	IF  shift 52
+	WHILE  shift 53
+	LEFTANGLEBRACKET  shift 51
+	.  reduce 17 (src line 199)
+
+	Statement  goto 58
+
+state 59
+	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN.Expression SEMICOLON RIGHTANGLEBRACKET 
+
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
+	.  error
+
+	Expression  goto 67
+
+60: shift/reduce conflict (shift 57(0), red'n 18(0)) on IDENTIFIER
+60: shift/reduce conflict (shift 54(0), red'n 18(0)) on SYSTEMOUTPRINTLN
+60: shift/reduce conflict (shift 52(0), red'n 18(0)) on IF
+60: shift/reduce conflict (shift 53(0), red'n 18(0)) on WHILE
+60: shift/reduce conflict (shift 51(0), red'n 18(0)) on LEFTANGLEBRACKET
+60: shift/reduce conflict (shift 75(0), red'n 18(0)) on RIGHTANGLEBRACKET
+state 60
+	Statement:  LEFTANGLEBRACKET Statement.RIGHTANGLEBRACKET 
+	Statement:  Statement.Statement 
+	Statement: .    (18)
+
+	IDENTIFIER  shift 57
+	SYSTEMOUTPRINTLN  shift 54
+	IF  shift 52
+	WHILE  shift 53
+	LEFTANGLEBRACKET  shift 51
+	RIGHTANGLEBRACKET  shift 75
+	.  error
+
+	Statement  goto 58
 
 state 61
-	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement.RIGHTANGLEBRACKET RIGHTANGLEBRACKET 
-
-	RIGHTANGLEBRACKET  shift 69
-	.  error
-
-
-state 62
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN.Expression SEMICOLON RIGHTANGLEBRACKET 
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN.Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration 
-
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
-	.  error
-
-	Expression  goto 70
-
-state 63
-	Statement:  LEFTANGLEBRACKET Statement.RIGHTANGLEBRACKET 
-
-	RIGHTANGLEBRACKET  shift 78
-	.  error
-
-
-state 64
 	Statement:  IF LEFTPARENTHESIS.Expression RIGHTPARENTHESIS Statement ELSE Statement 
 
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
+	.  error
+
+	Expression  goto 76
+
+state 62
+	Statement:  WHILE LEFTPARENTHESIS.Expression RIGHTPARENTHESIS Statement 
+
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
+	.  error
+
+	Expression  goto 77
+
+state 63
+	Statement:  SYSTEMOUTPRINTLN LEFTPARENTHESIS.Expression RIGHTPARENTHESIS SEMICOLON 
+
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
+	.  error
+
+	Expression  goto 78
+
+state 64
+	Statement:  IDENTIFIER EQUAL.Expression SEMICOLON 
+
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
 	.  error
 
 	Expression  goto 79
 
 state 65
-	Statement:  WHILE LEFTPARENTHESIS.Expression RIGHTPARENTHESIS Statement 
+	Statement:  IDENTIFIER LEFTBRACKET.Expression RIGHTBRACKET EQUAL Expression SEMICOLON 
 
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
 	.  error
 
 	Expression  goto 80
 
 state 66
-	Statement:  SYSTEMOUTPRINTLN LEFTPARENTHESIS.Expression RIGHTPARENTHESIS SEMICOLON 
-
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
-	.  error
-
-	Expression  goto 81
-
-state 67
-	Statement:  IDENTIFIER EQUAL.Expression SEMICOLON 
-
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
-	.  error
-
-	Expression  goto 82
-
-state 68
-	Statement:  IDENTIFIER LEFTBRACKET.Expression RIGHTBRACKET EQUAL Expression SEMICOLON 
-
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
-	.  error
-
-	Expression  goto 83
-
-state 69
 	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET.RIGHTANGLEBRACKET 
 
-	RIGHTANGLEBRACKET  shift 84
+	RIGHTANGLEBRACKET  shift 81
 	.  error
 
 
-state 70
+state 67
 	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression.SEMICOLON RIGHTANGLEBRACKET 
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression.SEMICOLON RIGHTANGLEBRACKET MethodDeclaration 
 	Expression:  Expression.LOGICALAND Expression 
 	Expression:  Expression.LESS Expression 
 	Expression:  Expression.PLUS Expression 
@@ -614,85 +707,85 @@ state 70
 	Expression:  Expression.PERIOD LENGTH 
 	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
 
-	LEFTBRACKET  shift 91
-	SEMICOLON  shift 85
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
+	LEFTBRACKET  shift 88
+	SEMICOLON  shift 82
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
 	.  error
+
+
+state 68
+	Expression:  IDENTIFIER.    (28)
+
+	.  reduce 28 (src line 253)
+
+
+state 69
+	Expression:  INTEGER_LITERAL.    (34)
+
+	.  reduce 34 (src line 287)
+
+
+state 70
+	Expression:  BOOLEAN_LITERAL.    (35)
+
+	.  reduce 35 (src line 291)
 
 
 state 71
-	Expression:  IDENTIFIER.    (27)
+	Expression:  THIS.    (39)
 
-	.  reduce 27 (src line 159)
+	.  reduce 39 (src line 320)
 
 
 state 72
-	Expression:  INTEGER_LITERAL.    (33)
-
-	.  reduce 33 (src line 165)
-
-
-state 73
-	Expression:  BOOLEAN_LITERAL.    (34)
-
-	.  reduce 34 (src line 166)
-
-
-state 74
-	Expression:  THIS.    (38)
-
-	.  reduce 38 (src line 170)
-
-
-state 75
 	Expression:  NEW.INT LEFTBRACKET Expression RIGHTBRACKET 
 	Expression:  NEW.IDENTIFIER LEFTPARENTHESIS RIGHTPARENTHESIS 
 
-	IDENTIFIER  shift 94
-	INT  shift 93
+	IDENTIFIER  shift 91
+	INT  shift 90
 	.  error
+
+
+state 73
+	Expression:  BANG.Expression 
+
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
+	.  error
+
+	Expression  goto 92
+
+state 74
+	Expression:  LEFTPARENTHESIS.Expression RIGHTPARENTHESIS 
+
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
+	.  error
+
+	Expression  goto 93
+
+state 75
+	Statement:  LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET.    (11)
+
+	.  reduce 11 (src line 143)
 
 
 state 76
-	Expression:  BANG.Expression 
-
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
-	.  error
-
-	Expression  goto 95
-
-state 77
-	Expression:  LEFTPARENTHESIS.Expression RIGHTPARENTHESIS 
-
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
-	.  error
-
-	Expression  goto 96
-
-state 78
-	Statement:  LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET.    (10)
-
-	.  reduce 10 (src line 136)
-
-
-state 79
 	Statement:  IF LEFTPARENTHESIS Expression.RIGHTPARENTHESIS Statement ELSE Statement 
 	Expression:  Expression.LOGICALAND Expression 
 	Expression:  Expression.LESS Expression 
@@ -703,18 +796,18 @@ state 79
 	Expression:  Expression.PERIOD LENGTH 
 	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
 
-	LEFTBRACKET  shift 91
-	RIGHTPARENTHESIS  shift 97
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
+	LEFTBRACKET  shift 88
+	RIGHTPARENTHESIS  shift 94
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
 	.  error
 
 
-state 80
+state 77
 	Statement:  WHILE LEFTPARENTHESIS Expression.RIGHTPARENTHESIS Statement 
 	Expression:  Expression.LOGICALAND Expression 
 	Expression:  Expression.LESS Expression 
@@ -725,18 +818,18 @@ state 80
 	Expression:  Expression.PERIOD LENGTH 
 	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
 
-	LEFTBRACKET  shift 91
-	RIGHTPARENTHESIS  shift 98
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
+	LEFTBRACKET  shift 88
+	RIGHTPARENTHESIS  shift 95
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
 	.  error
 
 
-state 81
+state 78
 	Statement:  SYSTEMOUTPRINTLN LEFTPARENTHESIS Expression.RIGHTPARENTHESIS SEMICOLON 
 	Expression:  Expression.LOGICALAND Expression 
 	Expression:  Expression.LESS Expression 
@@ -747,18 +840,18 @@ state 81
 	Expression:  Expression.PERIOD LENGTH 
 	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
 
-	LEFTBRACKET  shift 91
-	RIGHTPARENTHESIS  shift 99
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
+	LEFTBRACKET  shift 88
+	RIGHTPARENTHESIS  shift 96
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
 	.  error
 
 
-state 82
+state 79
 	Statement:  IDENTIFIER EQUAL Expression.SEMICOLON 
 	Expression:  Expression.LOGICALAND Expression 
 	Expression:  Expression.LESS Expression 
@@ -769,18 +862,18 @@ state 82
 	Expression:  Expression.PERIOD LENGTH 
 	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
 
-	LEFTBRACKET  shift 91
-	SEMICOLON  shift 100
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
+	LEFTBRACKET  shift 88
+	SEMICOLON  shift 97
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
 	.  error
 
 
-state 83
+state 80
 	Statement:  IDENTIFIER LEFTBRACKET Expression.RIGHTBRACKET EQUAL Expression SEMICOLON 
 	Expression:  Expression.LOGICALAND Expression 
 	Expression:  Expression.LESS Expression 
@@ -791,146 +884,145 @@ state 83
 	Expression:  Expression.PERIOD LENGTH 
 	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
 
-	LEFTBRACKET  shift 91
-	RIGHTBRACKET  shift 101
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
+	LEFTBRACKET  shift 88
+	RIGHTBRACKET  shift 98
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
 	.  error
 
 
-state 84
+state 81
 	MainClass:  CLASS IDENTIFIER LEFTANGLEBRACKET PUBLIC STATIC VOID MAIN LEFTPARENTHESIS STRING LEFTBRACKET RIGHTBRACKET IDENTIFIER RIGHTPARENTHESIS LEFTANGLEBRACKET Statement RIGHTANGLEBRACKET RIGHTANGLEBRACKET.    (3)
 
 	.  reduce 3 (src line 74)
 
 
-state 85
+state 82
 	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON.RIGHTANGLEBRACKET 
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON.RIGHTANGLEBRACKET MethodDeclaration 
 
-	RIGHTANGLEBRACKET  shift 102
+	RIGHTANGLEBRACKET  shift 99
 	.  error
 
 
-state 86
+state 83
 	Expression:  Expression LOGICALAND.Expression 
 
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
+	.  error
+
+	Expression  goto 100
+
+state 84
+	Expression:  Expression LESS.Expression 
+
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
+	.  error
+
+	Expression  goto 101
+
+state 85
+	Expression:  Expression PLUS.Expression 
+
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
+	.  error
+
+	Expression  goto 102
+
+state 86
+	Expression:  Expression MINUS.Expression 
+
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
 	.  error
 
 	Expression  goto 103
 
 state 87
-	Expression:  Expression LESS.Expression 
+	Expression:  Expression ASTERIX.Expression 
 
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
 	.  error
 
 	Expression  goto 104
 
 state 88
-	Expression:  Expression PLUS.Expression 
+	Expression:  Expression LEFTBRACKET.Expression RIGHTBRACKET 
 
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
 	.  error
 
 	Expression  goto 105
 
 state 89
-	Expression:  Expression MINUS.Expression 
-
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
-	.  error
-
-	Expression  goto 106
-
-state 90
-	Expression:  Expression ASTERIX.Expression 
-
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
-	.  error
-
-	Expression  goto 107
-
-state 91
-	Expression:  Expression LEFTBRACKET.Expression RIGHTBRACKET 
-
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
-	.  error
-
-	Expression  goto 108
-
-state 92
 	Expression:  Expression PERIOD.LENGTH 
 	Expression:  Expression PERIOD.IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
 
-	IDENTIFIER  shift 110
-	LENGTH  shift 109
+	IDENTIFIER  shift 107
+	LENGTH  shift 106
 	.  error
 
 
-state 93
+state 90
 	Expression:  NEW INT.LEFTBRACKET Expression RIGHTBRACKET 
 
-	LEFTBRACKET  shift 111
+	LEFTBRACKET  shift 108
 	.  error
 
 
-state 94
+state 91
 	Expression:  NEW IDENTIFIER.LEFTPARENTHESIS RIGHTPARENTHESIS 
 
-	LEFTPARENTHESIS  shift 112
+	LEFTPARENTHESIS  shift 109
 	.  error
 
 
-95: shift/reduce conflict (shift 91(0), red'n 41(0)) on LEFTBRACKET
-95: shift/reduce conflict (shift 92(0), red'n 41(0)) on PERIOD
-95: shift/reduce conflict (shift 88(0), red'n 41(0)) on PLUS
-95: shift/reduce conflict (shift 90(0), red'n 41(0)) on ASTERIX
-95: shift/reduce conflict (shift 87(0), red'n 41(0)) on LESS
-95: shift/reduce conflict (shift 86(0), red'n 41(0)) on LOGICALAND
-95: shift/reduce conflict (shift 89(0), red'n 41(0)) on MINUS
-state 95
+92: shift/reduce conflict (shift 88(0), red'n 42(0)) on LEFTBRACKET
+92: shift/reduce conflict (shift 89(0), red'n 42(0)) on PERIOD
+92: shift/reduce conflict (shift 85(0), red'n 42(0)) on PLUS
+92: shift/reduce conflict (shift 87(0), red'n 42(0)) on ASTERIX
+92: shift/reduce conflict (shift 84(0), red'n 42(0)) on LESS
+92: shift/reduce conflict (shift 83(0), red'n 42(0)) on LOGICALAND
+92: shift/reduce conflict (shift 86(0), red'n 42(0)) on MINUS
+state 92
 	Expression:  Expression.LOGICALAND Expression 
 	Expression:  Expression.LESS Expression 
 	Expression:  Expression.PLUS Expression 
@@ -939,19 +1031,19 @@ state 95
 	Expression:  Expression.LEFTBRACKET Expression RIGHTBRACKET 
 	Expression:  Expression.PERIOD LENGTH 
 	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
-	Expression:  BANG Expression.    (41)
+	Expression:  BANG Expression.    (42)
 
-	LEFTBRACKET  shift 91
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
-	.  reduce 41 (src line 173)
+	LEFTBRACKET  shift 88
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
+	.  reduce 42 (src line 341)
 
 
-state 96
+state 93
 	Expression:  Expression.LOGICALAND Expression 
 	Expression:  Expression.LESS Expression 
 	Expression:  Expression.PLUS Expression 
@@ -962,84 +1054,89 @@ state 96
 	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
 	Expression:  LEFTPARENTHESIS Expression.RIGHTPARENTHESIS 
 
-	LEFTBRACKET  shift 91
-	RIGHTPARENTHESIS  shift 113
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
+	LEFTBRACKET  shift 88
+	RIGHTPARENTHESIS  shift 110
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
+	.  error
+
+
+94: shift/reduce conflict (shift 57(0), red'n 18(0)) on IDENTIFIER
+94: shift/reduce conflict (shift 54(0), red'n 18(0)) on SYSTEMOUTPRINTLN
+94: shift/reduce conflict (shift 52(0), red'n 18(0)) on IF
+94: shift/reduce conflict (shift 53(0), red'n 18(0)) on WHILE
+94: shift/reduce conflict (shift 51(0), red'n 18(0)) on LEFTANGLEBRACKET
+state 94
+	Statement:  IF LEFTPARENTHESIS Expression RIGHTPARENTHESIS.Statement ELSE Statement 
+	Statement: .    (18)
+
+	IDENTIFIER  shift 57
+	SYSTEMOUTPRINTLN  shift 54
+	IF  shift 52
+	WHILE  shift 53
+	LEFTANGLEBRACKET  shift 51
+	.  reduce 18 (src line 205)
+
+	Statement  goto 111
+
+95: shift/reduce conflict (shift 57(0), red'n 18(0)) on IDENTIFIER
+95: shift/reduce conflict (shift 54(0), red'n 18(0)) on SYSTEMOUTPRINTLN
+95: shift/reduce conflict (shift 52(0), red'n 18(0)) on IF
+95: shift/reduce conflict (shift 53(0), red'n 18(0)) on WHILE
+95: shift/reduce conflict (shift 51(0), red'n 18(0)) on LEFTANGLEBRACKET
+state 95
+	Statement:  WHILE LEFTPARENTHESIS Expression RIGHTPARENTHESIS.Statement 
+	Statement: .    (18)
+
+	IDENTIFIER  shift 57
+	SYSTEMOUTPRINTLN  shift 54
+	IF  shift 52
+	WHILE  shift 53
+	LEFTANGLEBRACKET  shift 51
+	.  reduce 18 (src line 205)
+
+	Statement  goto 112
+
+state 96
+	Statement:  SYSTEMOUTPRINTLN LEFTPARENTHESIS Expression RIGHTPARENTHESIS.SEMICOLON 
+
+	SEMICOLON  shift 113
 	.  error
 
 
 state 97
-	Statement:  IF LEFTPARENTHESIS Expression RIGHTPARENTHESIS.Statement ELSE Statement 
-	Statement: .    (16)
+	Statement:  IDENTIFIER EQUAL Expression SEMICOLON.    (15)
 
-	IDENTIFIER  shift 60
-	SYSTEMOUTPRINTLN  shift 59
-	IF  shift 57
-	WHILE  shift 58
-	LEFTANGLEBRACKET  shift 56
-	.  reduce 16 (src line 148)
+	.  reduce 15 (src line 180)
 
-	Statement  goto 114
 
 state 98
-	Statement:  WHILE LEFTPARENTHESIS Expression RIGHTPARENTHESIS.Statement 
-	Statement: .    (16)
-
-	IDENTIFIER  shift 60
-	SYSTEMOUTPRINTLN  shift 59
-	IF  shift 57
-	WHILE  shift 58
-	LEFTANGLEBRACKET  shift 56
-	.  reduce 16 (src line 148)
-
-	Statement  goto 115
-
-state 99
-	Statement:  SYSTEMOUTPRINTLN LEFTPARENTHESIS Expression RIGHTPARENTHESIS.SEMICOLON 
-
-	SEMICOLON  shift 116
-	.  error
-
-
-state 100
-	Statement:  IDENTIFIER EQUAL Expression SEMICOLON.    (14)
-
-	.  reduce 14 (src line 146)
-
-
-state 101
 	Statement:  IDENTIFIER LEFTBRACKET Expression RIGHTBRACKET.EQUAL Expression SEMICOLON 
 
-	EQUAL  shift 117
+	EQUAL  shift 114
 	.  error
 
 
- 102: reduce/reduce conflict  (red'ns 24 and 26) on RIGHTANGLEBRACKET
-state 102
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET.    (24)
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET.MethodDeclaration 
-	MethodDeclaration: .    (26)
+state 99
+	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET.    (26)
 
-	PUBLIC  shift 27
-	.  reduce 24 (src line 156)
+	.  reduce 26 (src line 227)
 
-	MethodDeclaration  goto 118
 
-103: shift/reduce conflict (shift 91(0), red'n 28(0)) on LEFTBRACKET
-103: shift/reduce conflict (shift 92(0), red'n 28(0)) on PERIOD
-103: shift/reduce conflict (shift 88(0), red'n 28(0)) on PLUS
-103: shift/reduce conflict (shift 90(0), red'n 28(0)) on ASTERIX
-103: shift/reduce conflict (shift 87(0), red'n 28(0)) on LESS
-103: shift/reduce conflict (shift 86(0), red'n 28(0)) on LOGICALAND
-103: shift/reduce conflict (shift 89(0), red'n 28(0)) on MINUS
-state 103
+100: shift/reduce conflict (shift 88(0), red'n 29(0)) on LEFTBRACKET
+100: shift/reduce conflict (shift 89(0), red'n 29(0)) on PERIOD
+100: shift/reduce conflict (shift 85(0), red'n 29(0)) on PLUS
+100: shift/reduce conflict (shift 87(0), red'n 29(0)) on ASTERIX
+100: shift/reduce conflict (shift 84(0), red'n 29(0)) on LESS
+100: shift/reduce conflict (shift 83(0), red'n 29(0)) on LOGICALAND
+100: shift/reduce conflict (shift 86(0), red'n 29(0)) on MINUS
+state 100
 	Expression:  Expression.LOGICALAND Expression 
-	Expression:  Expression LOGICALAND Expression.    (28)
+	Expression:  Expression LOGICALAND Expression.    (29)
 	Expression:  Expression.LESS Expression 
 	Expression:  Expression.PLUS Expression 
 	Expression:  Expression.MINUS Expression 
@@ -1048,129 +1145,129 @@ state 103
 	Expression:  Expression.PERIOD LENGTH 
 	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
 
-	LEFTBRACKET  shift 91
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
-	.  reduce 28 (src line 160)
+	LEFTBRACKET  shift 88
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
+	.  reduce 29 (src line 257)
 
 
-104: shift/reduce conflict (shift 91(0), red'n 29(0)) on LEFTBRACKET
-104: shift/reduce conflict (shift 92(0), red'n 29(0)) on PERIOD
-104: shift/reduce conflict (shift 88(0), red'n 29(0)) on PLUS
-104: shift/reduce conflict (shift 90(0), red'n 29(0)) on ASTERIX
-104: shift/reduce conflict (shift 87(0), red'n 29(0)) on LESS
-104: shift/reduce conflict (shift 86(0), red'n 29(0)) on LOGICALAND
-104: shift/reduce conflict (shift 89(0), red'n 29(0)) on MINUS
+101: shift/reduce conflict (shift 88(0), red'n 30(0)) on LEFTBRACKET
+101: shift/reduce conflict (shift 89(0), red'n 30(0)) on PERIOD
+101: shift/reduce conflict (shift 85(0), red'n 30(0)) on PLUS
+101: shift/reduce conflict (shift 87(0), red'n 30(0)) on ASTERIX
+101: shift/reduce conflict (shift 84(0), red'n 30(0)) on LESS
+101: shift/reduce conflict (shift 83(0), red'n 30(0)) on LOGICALAND
+101: shift/reduce conflict (shift 86(0), red'n 30(0)) on MINUS
+state 101
+	Expression:  Expression.LOGICALAND Expression 
+	Expression:  Expression.LESS Expression 
+	Expression:  Expression LESS Expression.    (30)
+	Expression:  Expression.PLUS Expression 
+	Expression:  Expression.MINUS Expression 
+	Expression:  Expression.ASTERIX Expression 
+	Expression:  Expression.LEFTBRACKET Expression RIGHTBRACKET 
+	Expression:  Expression.PERIOD LENGTH 
+	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
+
+	LEFTBRACKET  shift 88
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
+	.  reduce 30 (src line 263)
+
+
+102: shift/reduce conflict (shift 88(0), red'n 31(0)) on LEFTBRACKET
+102: shift/reduce conflict (shift 89(0), red'n 31(0)) on PERIOD
+102: shift/reduce conflict (shift 85(0), red'n 31(0)) on PLUS
+102: shift/reduce conflict (shift 87(0), red'n 31(0)) on ASTERIX
+102: shift/reduce conflict (shift 84(0), red'n 31(0)) on LESS
+102: shift/reduce conflict (shift 83(0), red'n 31(0)) on LOGICALAND
+102: shift/reduce conflict (shift 86(0), red'n 31(0)) on MINUS
+state 102
+	Expression:  Expression.LOGICALAND Expression 
+	Expression:  Expression.LESS Expression 
+	Expression:  Expression.PLUS Expression 
+	Expression:  Expression PLUS Expression.    (31)
+	Expression:  Expression.MINUS Expression 
+	Expression:  Expression.ASTERIX Expression 
+	Expression:  Expression.LEFTBRACKET Expression RIGHTBRACKET 
+	Expression:  Expression.PERIOD LENGTH 
+	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
+
+	LEFTBRACKET  shift 88
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
+	.  reduce 31 (src line 269)
+
+
+103: shift/reduce conflict (shift 88(0), red'n 32(0)) on LEFTBRACKET
+103: shift/reduce conflict (shift 89(0), red'n 32(0)) on PERIOD
+103: shift/reduce conflict (shift 85(0), red'n 32(0)) on PLUS
+103: shift/reduce conflict (shift 87(0), red'n 32(0)) on ASTERIX
+103: shift/reduce conflict (shift 84(0), red'n 32(0)) on LESS
+103: shift/reduce conflict (shift 83(0), red'n 32(0)) on LOGICALAND
+103: shift/reduce conflict (shift 86(0), red'n 32(0)) on MINUS
+state 103
+	Expression:  Expression.LOGICALAND Expression 
+	Expression:  Expression.LESS Expression 
+	Expression:  Expression.PLUS Expression 
+	Expression:  Expression.MINUS Expression 
+	Expression:  Expression MINUS Expression.    (32)
+	Expression:  Expression.ASTERIX Expression 
+	Expression:  Expression.LEFTBRACKET Expression RIGHTBRACKET 
+	Expression:  Expression.PERIOD LENGTH 
+	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
+
+	LEFTBRACKET  shift 88
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
+	.  reduce 32 (src line 275)
+
+
+104: shift/reduce conflict (shift 88(0), red'n 33(0)) on LEFTBRACKET
+104: shift/reduce conflict (shift 89(0), red'n 33(0)) on PERIOD
+104: shift/reduce conflict (shift 85(0), red'n 33(0)) on PLUS
+104: shift/reduce conflict (shift 87(0), red'n 33(0)) on ASTERIX
+104: shift/reduce conflict (shift 84(0), red'n 33(0)) on LESS
+104: shift/reduce conflict (shift 83(0), red'n 33(0)) on LOGICALAND
+104: shift/reduce conflict (shift 86(0), red'n 33(0)) on MINUS
 state 104
 	Expression:  Expression.LOGICALAND Expression 
 	Expression:  Expression.LESS Expression 
-	Expression:  Expression LESS Expression.    (29)
 	Expression:  Expression.PLUS Expression 
 	Expression:  Expression.MINUS Expression 
 	Expression:  Expression.ASTERIX Expression 
+	Expression:  Expression ASTERIX Expression.    (33)
 	Expression:  Expression.LEFTBRACKET Expression RIGHTBRACKET 
 	Expression:  Expression.PERIOD LENGTH 
 	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
 
-	LEFTBRACKET  shift 91
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
-	.  reduce 29 (src line 161)
+	LEFTBRACKET  shift 88
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
+	.  reduce 33 (src line 281)
 
 
-105: shift/reduce conflict (shift 91(0), red'n 30(0)) on LEFTBRACKET
-105: shift/reduce conflict (shift 92(0), red'n 30(0)) on PERIOD
-105: shift/reduce conflict (shift 88(0), red'n 30(0)) on PLUS
-105: shift/reduce conflict (shift 90(0), red'n 30(0)) on ASTERIX
-105: shift/reduce conflict (shift 87(0), red'n 30(0)) on LESS
-105: shift/reduce conflict (shift 86(0), red'n 30(0)) on LOGICALAND
-105: shift/reduce conflict (shift 89(0), red'n 30(0)) on MINUS
 state 105
-	Expression:  Expression.LOGICALAND Expression 
-	Expression:  Expression.LESS Expression 
-	Expression:  Expression.PLUS Expression 
-	Expression:  Expression PLUS Expression.    (30)
-	Expression:  Expression.MINUS Expression 
-	Expression:  Expression.ASTERIX Expression 
-	Expression:  Expression.LEFTBRACKET Expression RIGHTBRACKET 
-	Expression:  Expression.PERIOD LENGTH 
-	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
-
-	LEFTBRACKET  shift 91
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
-	.  reduce 30 (src line 162)
-
-
-106: shift/reduce conflict (shift 91(0), red'n 31(0)) on LEFTBRACKET
-106: shift/reduce conflict (shift 92(0), red'n 31(0)) on PERIOD
-106: shift/reduce conflict (shift 88(0), red'n 31(0)) on PLUS
-106: shift/reduce conflict (shift 90(0), red'n 31(0)) on ASTERIX
-106: shift/reduce conflict (shift 87(0), red'n 31(0)) on LESS
-106: shift/reduce conflict (shift 86(0), red'n 31(0)) on LOGICALAND
-106: shift/reduce conflict (shift 89(0), red'n 31(0)) on MINUS
-state 106
-	Expression:  Expression.LOGICALAND Expression 
-	Expression:  Expression.LESS Expression 
-	Expression:  Expression.PLUS Expression 
-	Expression:  Expression.MINUS Expression 
-	Expression:  Expression MINUS Expression.    (31)
-	Expression:  Expression.ASTERIX Expression 
-	Expression:  Expression.LEFTBRACKET Expression RIGHTBRACKET 
-	Expression:  Expression.PERIOD LENGTH 
-	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
-
-	LEFTBRACKET  shift 91
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
-	.  reduce 31 (src line 163)
-
-
-107: shift/reduce conflict (shift 91(0), red'n 32(0)) on LEFTBRACKET
-107: shift/reduce conflict (shift 92(0), red'n 32(0)) on PERIOD
-107: shift/reduce conflict (shift 88(0), red'n 32(0)) on PLUS
-107: shift/reduce conflict (shift 90(0), red'n 32(0)) on ASTERIX
-107: shift/reduce conflict (shift 87(0), red'n 32(0)) on LESS
-107: shift/reduce conflict (shift 86(0), red'n 32(0)) on LOGICALAND
-107: shift/reduce conflict (shift 89(0), red'n 32(0)) on MINUS
-state 107
-	Expression:  Expression.LOGICALAND Expression 
-	Expression:  Expression.LESS Expression 
-	Expression:  Expression.PLUS Expression 
-	Expression:  Expression.MINUS Expression 
-	Expression:  Expression.ASTERIX Expression 
-	Expression:  Expression ASTERIX Expression.    (32)
-	Expression:  Expression.LEFTBRACKET Expression RIGHTBRACKET 
-	Expression:  Expression.PERIOD LENGTH 
-	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
-
-	LEFTBRACKET  shift 91
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
-	.  reduce 32 (src line 164)
-
-
-state 108
 	Expression:  Expression.LOGICALAND Expression 
 	Expression:  Expression.LESS Expression 
 	Expression:  Expression.PLUS Expression 
@@ -1181,118 +1278,147 @@ state 108
 	Expression:  Expression.PERIOD LENGTH 
 	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
 
-	LEFTBRACKET  shift 91
-	RIGHTBRACKET  shift 119
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
+	LEFTBRACKET  shift 88
+	RIGHTBRACKET  shift 115
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
 	.  error
 
 
-state 109
-	Expression:  Expression PERIOD LENGTH.    (36)
+state 106
+	Expression:  Expression PERIOD LENGTH.    (37)
 
-	.  reduce 36 (src line 168)
+	.  reduce 37 (src line 303)
+
+
+state 107
+	Expression:  Expression PERIOD IDENTIFIER.LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
+
+	LEFTPARENTHESIS  shift 116
+	.  error
+
+
+state 108
+	Expression:  NEW INT LEFTBRACKET.Expression RIGHTBRACKET 
+
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
+	.  error
+
+	Expression  goto 117
+
+state 109
+	Expression:  NEW IDENTIFIER LEFTPARENTHESIS.RIGHTPARENTHESIS 
+
+	RIGHTPARENTHESIS  shift 118
+	.  error
 
 
 state 110
-	Expression:  Expression PERIOD IDENTIFIER.LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
+	Expression:  LEFTPARENTHESIS Expression RIGHTPARENTHESIS.    (43)
 
-	LEFTPARENTHESIS  shift 120
-	.  error
+	.  reduce 43 (src line 347)
 
 
+111: shift/reduce conflict (shift 57(0), red'n 18(0)) on IDENTIFIER
+111: shift/reduce conflict (shift 54(0), red'n 18(0)) on SYSTEMOUTPRINTLN
+111: shift/reduce conflict (shift 52(0), red'n 18(0)) on IF
+111: shift/reduce conflict (shift 119(0), red'n 18(0)) on ELSE
+111: shift/reduce conflict (shift 53(0), red'n 18(0)) on WHILE
+111: shift/reduce conflict (shift 51(0), red'n 18(0)) on LEFTANGLEBRACKET
 state 111
-	Expression:  NEW INT LEFTBRACKET.Expression RIGHTBRACKET 
+	Statement:  IF LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement.ELSE Statement 
+	Statement:  Statement.Statement 
+	Statement: .    (18)
 
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
+	IDENTIFIER  shift 57
+	SYSTEMOUTPRINTLN  shift 54
+	IF  shift 52
+	ELSE  shift 119
+	WHILE  shift 53
+	LEFTANGLEBRACKET  shift 51
 	.  error
 
-	Expression  goto 121
+	Statement  goto 58
 
+112: shift/reduce conflict (shift 57(0), red'n 13(0)) on IDENTIFIER
+112: shift/reduce conflict (shift 54(0), red'n 13(0)) on SYSTEMOUTPRINTLN
+112: shift/reduce conflict (shift 52(0), red'n 13(0)) on IF
+112: shift/reduce conflict (shift 53(0), red'n 13(0)) on WHILE
+112: shift/reduce conflict (shift 51(0), red'n 13(0)) on LEFTANGLEBRACKET
+112: shift/reduce conflict (shift 57(0), red'n 18(0)) on IDENTIFIER
+112: shift/reduce conflict (shift 54(0), red'n 18(0)) on SYSTEMOUTPRINTLN
+ 112: reduce/reduce conflict  (red'ns 13 and 18) on RETURN
+112: shift/reduce conflict (shift 52(0), red'n 18(0)) on IF
+ 112: reduce/reduce conflict  (red'ns 13 and 18) on ELSE
+112: shift/reduce conflict (shift 53(0), red'n 18(0)) on WHILE
+112: shift/reduce conflict (shift 51(0), red'n 18(0)) on LEFTANGLEBRACKET
+ 112: reduce/reduce conflict  (red'ns 13 and 18) on RIGHTANGLEBRACKET
 state 112
-	Expression:  NEW IDENTIFIER LEFTPARENTHESIS.RIGHTPARENTHESIS 
+	Statement:  WHILE LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement.    (13)
+	Statement:  Statement.Statement 
+	Statement: .    (18)
 
-	RIGHTPARENTHESIS  shift 122
-	.  error
+	IDENTIFIER  shift 57
+	SYSTEMOUTPRINTLN  shift 54
+	IF  shift 52
+	WHILE  shift 53
+	LEFTANGLEBRACKET  shift 51
+	.  reduce 13 (src line 161)
 
+	Statement  goto 58
 
 state 113
-	Expression:  LEFTPARENTHESIS Expression RIGHTPARENTHESIS.    (42)
+	Statement:  SYSTEMOUTPRINTLN LEFTPARENTHESIS Expression RIGHTPARENTHESIS SEMICOLON.    (14)
 
-	.  reduce 42 (src line 174)
+	.  reduce 14 (src line 171)
 
 
 state 114
-	Statement:  IF LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement.ELSE Statement 
+	Statement:  IDENTIFIER LEFTBRACKET Expression RIGHTBRACKET EQUAL.Expression SEMICOLON 
 
-	ELSE  shift 123
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
 	.  error
 
+	Expression  goto 120
 
 state 115
-	Statement:  WHILE LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement.    (12)
+	Expression:  Expression LEFTBRACKET Expression RIGHTBRACKET.    (36)
 
-	.  reduce 12 (src line 144)
+	.  reduce 36 (src line 295)
 
 
 state 116
-	Statement:  SYSTEMOUTPRINTLN LEFTPARENTHESIS Expression RIGHTPARENTHESIS SEMICOLON.    (13)
-
-	.  reduce 13 (src line 145)
-
-
-state 117
-	Statement:  IDENTIFIER LEFTBRACKET Expression RIGHTBRACKET EQUAL.Expression SEMICOLON 
-
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
-	.  error
-
-	Expression  goto 124
-
-state 118
-	MethodDeclaration:  PUBLIC Type IDENTIFIER LEFTPARENTHESIS MethodTypeDeclaration RIGHTPARENTHESIS LEFTANGLEBRACKET VarDeclaration Statement RETURN Expression SEMICOLON RIGHTANGLEBRACKET MethodDeclaration.    (25)
-
-	.  reduce 25 (src line 157)
-
-
-state 119
-	Expression:  Expression LEFTBRACKET Expression RIGHTBRACKET.    (35)
-
-	.  reduce 35 (src line 167)
-
-
-state 120
 	Expression:  Expression PERIOD IDENTIFIER LEFTPARENTHESIS.MethodExpressionSignature RIGHTPARENTHESIS 
 
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
 	.  error
 
-	Expression  goto 126
-	MethodExpressionSignature  goto 125
+	Expression  goto 122
+	MethodExpressionSignature  goto 121
 
-state 121
+state 117
 	Expression:  Expression.LOGICALAND Expression 
 	Expression:  Expression.LESS Expression 
 	Expression:  Expression.PLUS Expression 
@@ -1303,37 +1429,42 @@ state 121
 	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
 	Expression:  NEW INT LEFTBRACKET Expression.RIGHTBRACKET 
 
-	LEFTBRACKET  shift 91
-	RIGHTBRACKET  shift 127
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
+	LEFTBRACKET  shift 88
+	RIGHTBRACKET  shift 123
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
 	.  error
 
 
-state 122
-	Expression:  NEW IDENTIFIER LEFTPARENTHESIS RIGHTPARENTHESIS.    (40)
+state 118
+	Expression:  NEW IDENTIFIER LEFTPARENTHESIS RIGHTPARENTHESIS.    (41)
 
-	.  reduce 40 (src line 172)
+	.  reduce 41 (src line 333)
 
 
-state 123
+119: shift/reduce conflict (shift 57(0), red'n 18(0)) on IDENTIFIER
+119: shift/reduce conflict (shift 54(0), red'n 18(0)) on SYSTEMOUTPRINTLN
+119: shift/reduce conflict (shift 52(0), red'n 18(0)) on IF
+119: shift/reduce conflict (shift 53(0), red'n 18(0)) on WHILE
+119: shift/reduce conflict (shift 51(0), red'n 18(0)) on LEFTANGLEBRACKET
+state 119
 	Statement:  IF LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement ELSE.Statement 
-	Statement: .    (16)
+	Statement: .    (18)
 
-	IDENTIFIER  shift 60
-	SYSTEMOUTPRINTLN  shift 59
-	IF  shift 57
-	WHILE  shift 58
-	LEFTANGLEBRACKET  shift 56
-	.  reduce 16 (src line 148)
+	IDENTIFIER  shift 57
+	SYSTEMOUTPRINTLN  shift 54
+	IF  shift 52
+	WHILE  shift 53
+	LEFTANGLEBRACKET  shift 51
+	.  reduce 18 (src line 205)
 
-	Statement  goto 128
+	Statement  goto 124
 
-state 124
+state 120
 	Statement:  IDENTIFIER LEFTBRACKET Expression RIGHTBRACKET EQUAL Expression.SEMICOLON 
 	Expression:  Expression.LOGICALAND Expression 
 	Expression:  Expression.LESS Expression 
@@ -1344,86 +1475,107 @@ state 124
 	Expression:  Expression.PERIOD LENGTH 
 	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
 
-	LEFTBRACKET  shift 91
-	SEMICOLON  shift 129
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
+	LEFTBRACKET  shift 88
+	SEMICOLON  shift 125
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
 	.  error
 
 
-state 125
+state 121
 	Expression:  Expression PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature.RIGHTPARENTHESIS 
 	MethodExpressionSignature:  MethodExpressionSignature.COMMA Expression 
 
-	COMMA  shift 131
-	RIGHTPARENTHESIS  shift 130
+	COMMA  shift 127
+	RIGHTPARENTHESIS  shift 126
 	.  error
+
+
+state 122
+	Expression:  Expression.LOGICALAND Expression 
+	Expression:  Expression.LESS Expression 
+	Expression:  Expression.PLUS Expression 
+	Expression:  Expression.MINUS Expression 
+	Expression:  Expression.ASTERIX Expression 
+	Expression:  Expression.LEFTBRACKET Expression RIGHTBRACKET 
+	Expression:  Expression.PERIOD LENGTH 
+	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
+	MethodExpressionSignature:  Expression.    (44)
+
+	LEFTBRACKET  shift 88
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
+	.  reduce 44 (src line 355)
+
+
+state 123
+	Expression:  NEW INT LEFTBRACKET Expression RIGHTBRACKET.    (40)
+
+	.  reduce 40 (src line 324)
+
+
+124: shift/reduce conflict (shift 57(0), red'n 12(0)) on IDENTIFIER
+124: shift/reduce conflict (shift 54(0), red'n 12(0)) on SYSTEMOUTPRINTLN
+124: shift/reduce conflict (shift 52(0), red'n 12(0)) on IF
+124: shift/reduce conflict (shift 53(0), red'n 12(0)) on WHILE
+124: shift/reduce conflict (shift 51(0), red'n 12(0)) on LEFTANGLEBRACKET
+124: shift/reduce conflict (shift 57(0), red'n 18(0)) on IDENTIFIER
+124: shift/reduce conflict (shift 54(0), red'n 18(0)) on SYSTEMOUTPRINTLN
+ 124: reduce/reduce conflict  (red'ns 12 and 18) on RETURN
+124: shift/reduce conflict (shift 52(0), red'n 18(0)) on IF
+ 124: reduce/reduce conflict  (red'ns 12 and 18) on ELSE
+124: shift/reduce conflict (shift 53(0), red'n 18(0)) on WHILE
+124: shift/reduce conflict (shift 51(0), red'n 18(0)) on LEFTANGLEBRACKET
+ 124: reduce/reduce conflict  (red'ns 12 and 18) on RIGHTANGLEBRACKET
+state 124
+	Statement:  IF LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement ELSE Statement.    (12)
+	Statement:  Statement.Statement 
+	Statement: .    (18)
+
+	IDENTIFIER  shift 57
+	SYSTEMOUTPRINTLN  shift 54
+	IF  shift 52
+	WHILE  shift 53
+	LEFTANGLEBRACKET  shift 51
+	.  reduce 12 (src line 150)
+
+	Statement  goto 58
+
+state 125
+	Statement:  IDENTIFIER LEFTBRACKET Expression RIGHTBRACKET EQUAL Expression SEMICOLON.    (16)
+
+	.  reduce 16 (src line 188)
 
 
 state 126
-	Expression:  Expression.LOGICALAND Expression 
-	Expression:  Expression.LESS Expression 
-	Expression:  Expression.PLUS Expression 
-	Expression:  Expression.MINUS Expression 
-	Expression:  Expression.ASTERIX Expression 
-	Expression:  Expression.LEFTBRACKET Expression RIGHTBRACKET 
-	Expression:  Expression.PERIOD LENGTH 
-	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
-	MethodExpressionSignature:  Expression.    (43)
+	Expression:  Expression PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS.    (38)
 
-	LEFTBRACKET  shift 91
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
-	.  reduce 43 (src line 176)
+	.  reduce 38 (src line 310)
 
 
 state 127
-	Expression:  NEW INT LEFTBRACKET Expression RIGHTBRACKET.    (39)
-
-	.  reduce 39 (src line 171)
-
-
-state 128
-	Statement:  IF LEFTPARENTHESIS Expression RIGHTPARENTHESIS Statement ELSE Statement.    (11)
-
-	.  reduce 11 (src line 143)
-
-
-state 129
-	Statement:  IDENTIFIER LEFTBRACKET Expression RIGHTBRACKET EQUAL Expression SEMICOLON.    (15)
-
-	.  reduce 15 (src line 147)
-
-
-state 130
-	Expression:  Expression PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS.    (37)
-
-	.  reduce 37 (src line 169)
-
-
-state 131
 	MethodExpressionSignature:  MethodExpressionSignature COMMA.Expression 
 
-	BANG  shift 76
-	INTEGER_LITERAL  shift 72
-	BOOLEAN_LITERAL  shift 73
-	IDENTIFIER  shift 71
-	THIS  shift 74
-	NEW  shift 75
-	LEFTPARENTHESIS  shift 77
+	BANG  shift 73
+	INTEGER_LITERAL  shift 69
+	BOOLEAN_LITERAL  shift 70
+	IDENTIFIER  shift 68
+	THIS  shift 71
+	NEW  shift 72
+	LEFTPARENTHESIS  shift 74
 	.  error
 
-	Expression  goto 132
+	Expression  goto 128
 
-state 132
+state 128
 	Expression:  Expression.LOGICALAND Expression 
 	Expression:  Expression.LESS Expression 
 	Expression:  Expression.PLUS Expression 
@@ -1432,27 +1584,27 @@ state 132
 	Expression:  Expression.LEFTBRACKET Expression RIGHTBRACKET 
 	Expression:  Expression.PERIOD LENGTH 
 	Expression:  Expression.PERIOD IDENTIFIER LEFTPARENTHESIS MethodExpressionSignature RIGHTPARENTHESIS 
-	MethodExpressionSignature:  MethodExpressionSignature COMMA Expression.    (44)
+	MethodExpressionSignature:  MethodExpressionSignature COMMA Expression.    (45)
 
-	LEFTBRACKET  shift 91
-	PERIOD  shift 92
-	PLUS  shift 88
-	ASTERIX  shift 90
-	LESS  shift 87
-	LOGICALAND  shift 86
-	MINUS  shift 89
-	.  reduce 44 (src line 177)
+	LEFTBRACKET  shift 88
+	PERIOD  shift 89
+	PLUS  shift 85
+	ASTERIX  shift 87
+	LESS  shift 84
+	LOGICALAND  shift 83
+	MINUS  shift 86
+	.  reduce 45 (src line 359)
 
 
 49 terminals, 12 nonterminals
-45 grammar rules, 133/16000 states
-43 shift/reduce, 1 reduce/reduce conflicts reported
+46 grammar rules, 129/16000 states
+151 shift/reduce, 16 reduce/reduce conflicts reported
 61 working sets used
 memory: parser 45/240000
-70 extra closures
-374 shift entries, 1 exceptions
-43 goto entries
-3 entries saved by goto default
-Optimizer space used: output 232/240000
-232 table entries, 29 zero
-maximum spread: 49, maximum offset: 131
+71 extra closures
+410 shift entries, 1 exceptions
+42 goto entries
+14 entries saved by goto default
+Optimizer space used: output 264/240000
+264 table entries, 34 zero
+maximum spread: 49, maximum offset: 127

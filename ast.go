@@ -64,7 +64,7 @@ func (n *Node) String() string {
 	if len(parts) > 1 {
 		return fmt.Sprintf("%v", strings.Join(parts, " "))
 	}
-	return strings.Join(parts, " ")
+	return strings.Join(parts, "")
 	//p := printer{}
 	//return p.Print(*n)
 }

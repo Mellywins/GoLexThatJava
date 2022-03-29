@@ -45,7 +45,7 @@ func (g *golex) Lex(lval *yySymType) (tokenType int) {
 // you call into the parser.
 func (l *golex) Error(message string) {
 	// is there a better way to handle this in the context of goyacc?
-	panic(fmt.Errorf(message))
+	panic(fmt.Errorf(fmt.Sprintf("error occured at (%d) with message %s", l.Scanner.TC, message)))
 }
 func newLexer() *lexmachine.Lexer {
 	return lexical.NewLexer()

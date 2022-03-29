@@ -122,7 +122,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyInitialStackSize = 16
 
-//line syntax.y:179
+//line syntax.y:367
 
 //line yacctab:1
 var yyExca = [...]int8{
@@ -133,105 +133,105 @@ var yyExca = [...]int8{
 
 const yyPrivate = 57344
 
-const yyLast = 232
+const yyLast = 264
 
 var yyAct = [...]uint8{
-	70, 55, 26, 91, 43, 68, 117, 122, 129, 51,
-	46, 131, 92, 88, 90, 130, 120, 112, 66, 87,
-	91, 127, 65, 86, 64, 41, 89, 67, 31, 92,
-	88, 90, 36, 20, 116, 19, 87, 91, 119, 34,
-	86, 54, 50, 89, 102, 84, 92, 88, 90, 78,
-	69, 37, 32, 87, 25, 53, 61, 86, 63, 49,
-	89, 33, 18, 91, 15, 79, 80, 81, 82, 83,
-	39, 113, 92, 88, 90, 44, 9, 95, 96, 87,
-	45, 35, 111, 86, 44, 52, 89, 103, 104, 105,
-	106, 107, 108, 91, 101, 42, 29, 110, 12, 114,
-	115, 123, 92, 88, 90, 118, 94, 62, 40, 87,
-	30, 24, 121, 86, 109, 93, 89, 91, 124, 11,
-	23, 126, 100, 7, 17, 128, 92, 88, 90, 21,
-	14, 27, 132, 87, 91, 13, 22, 86, 5, 3,
-	89, 48, 99, 92, 88, 90, 47, 38, 28, 125,
-	87, 91, 16, 10, 86, 8, 6, 89, 4, 98,
-	92, 88, 90, 2, 1, 0, 0, 87, 91, 0,
-	0, 86, 0, 0, 89, 0, 97, 92, 88, 90,
-	0, 0, 0, 0, 87, 91, 0, 0, 86, 0,
-	85, 89, 0, 91, 92, 88, 90, 76, 72, 73,
-	71, 87, 92, 88, 90, 86, 0, 0, 89, 87,
-	60, 0, 0, 86, 74, 75, 89, 59, 0, 0,
-	57, 0, 0, 58, 0, 0, 77, 0, 0, 0,
-	0, 56,
+	67, 58, 88, 114, 65, 127, 118, 125, 38, 126,
+	23, 89, 85, 87, 46, 41, 116, 109, 84, 88,
+	123, 63, 83, 62, 16, 86, 64, 61, 89, 85,
+	87, 36, 33, 113, 31, 84, 88, 115, 45, 83,
+	99, 24, 86, 81, 49, 89, 85, 87, 44, 50,
+	13, 56, 84, 60, 48, 47, 83, 17, 9, 86,
+	88, 28, 76, 77, 78, 79, 80, 40, 110, 89,
+	85, 87, 32, 108, 92, 93, 84, 37, 26, 11,
+	83, 107, 30, 86, 100, 101, 102, 103, 104, 105,
+	88, 98, 35, 27, 39, 29, 111, 112, 106, 89,
+	85, 87, 20, 39, 24, 21, 84, 91, 15, 117,
+	83, 18, 22, 86, 88, 120, 90, 122, 19, 97,
+	24, 124, 57, 89, 85, 87, 12, 5, 128, 54,
+	84, 88, 52, 3, 83, 53, 20, 86, 43, 96,
+	89, 85, 87, 51, 75, 18, 121, 84, 88, 42,
+	34, 83, 19, 25, 86, 14, 95, 89, 85, 87,
+	8, 6, 10, 7, 84, 88, 4, 2, 83, 1,
+	0, 86, 0, 94, 89, 85, 87, 0, 0, 0,
+	0, 84, 88, 0, 0, 83, 0, 82, 86, 0,
+	88, 89, 85, 87, 73, 69, 70, 68, 84, 89,
+	85, 87, 83, 0, 0, 86, 84, 57, 0, 55,
+	83, 71, 72, 86, 54, 0, 54, 52, 18, 52,
+	53, 0, 53, 74, 57, 19, 0, 0, 51, 66,
+	51, 54, 0, 57, 52, 0, 119, 53, 0, 0,
+	54, 59, 57, 52, 0, 51, 53, 0, 0, 54,
+	0, 0, 52, 0, 51, 53, 0, 0, 0, 0,
+	0, 0, 0, 51,
 }
 
 var yyPact = [...]int16{
-	131, -1000, 130, 149, 115, 148, 48, 146, 73, 126,
-	73, 36, 145, 114, 34, 113, -1000, 100, 113, 122,
-	141, 70, -1000, -1000, 98, 122, 23, 113, 8, 54,
-	-1, 22, -1000, 140, 113, -1000, 95, -1000, -8, -1000,
-	69, 113, 53, -24, 139, 134, 31, 12, -25, 113,
-	113, 13, 203, -1000, 203, 92, 203, -9, -11, -15,
-	-21, 21, 193, 20, 193, 193, 193, 193, 193, 16,
-	159, -1000, -1000, -1000, -1000, 99, 193, 193, -1000, 142,
-	125, 108, 91, 67, -1000, 15, 193, 193, 193, 193,
-	193, 193, 90, 56, -16, 167, 37, 203, 203, 3,
-	-1000, -42, 122, 167, 167, 167, 167, 167, 11, -1000,
-	-17, 193, -27, -1000, 82, -1000, -1000, 193, -1000, -1000,
-	193, -6, -1000, 203, -23, -19, 167, -1000, -1000, -1000,
-	-1000, 193, 167,
+	125, -1000, 119, 154, 119, 153, 30, 119, 54, 117,
+	22, 148, 98, 129, -1000, 94, 95, 146, 52, -1000,
+	-1000, 81, 32, 129, 129, 3, 45, -1, -1000, 111,
+	143, -1000, -1000, 79, -2, 51, 129, 40, -19, 142,
+	131, 20, 8, -20, 129, 129, 16, 202, -1000, 235,
+	226, 235, -6, -10, -12, -22, 200, -22, 235, 190,
+	115, 190, 190, 190, 190, 190, 14, 156, -1000, -1000,
+	-1000, -1000, 100, 190, 190, -1000, 139, 122, 105, 88,
+	64, -1000, 11, 190, 190, 190, 190, 190, 190, 74,
+	47, -16, 164, 34, 235, 235, 2, -1000, -45, -1000,
+	164, 164, 164, 164, 164, 10, -1000, -17, 190, -28,
+	-1000, 217, 235, -1000, 190, -1000, 190, -7, -1000, 235,
+	-24, -25, 164, -1000, 235, -1000, -1000, 190, 164,
 }
 
 var yyPgo = [...]uint8{
-	0, 164, 163, 158, 1, 119, 35, 2, 33, 0,
-	4, 149,
+	0, 169, 167, 163, 1, 162, 10, 95, 57, 0,
+	8, 146,
 }
 
 var yyR1 = [...]int8{
 	0, 1, 1, 2, 3, 3, 5, 5, 6, 6,
-	4, 4, 4, 4, 4, 4, 4, 8, 8, 8,
-	8, 10, 10, 10, 7, 7, 7, 9, 9, 9,
+	6, 4, 4, 4, 4, 4, 4, 4, 4, 8,
+	8, 8, 8, 10, 10, 10, 7, 7, 9, 9,
 	9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
-	9, 9, 9, 11, 11,
+	9, 9, 9, 9, 11, 11,
 }
 
 var yyR2 = [...]int8{
-	0, 1, 2, 17, 7, 8, 2, 0, 4, 3,
-	3, 7, 5, 5, 4, 7, 0, 3, 1, 1,
-	1, 0, 2, 4, 13, 14, 0, 1, 3, 3,
-	3, 3, 3, 1, 1, 4, 3, 6, 1, 5,
-	4, 2, 3, 1, 3,
+	0, 1, 2, 17, 7, 2, 2, 0, 2, 3,
+	0, 3, 7, 5, 5, 4, 7, 2, 0, 3,
+	1, 1, 1, 0, 2, 4, 13, 2, 1, 3,
+	3, 3, 3, 3, 1, 1, 4, 3, 6, 1,
+	5, 4, 2, 3, 1, 3,
 }
 
 var yyChk = [...]int16{
-	-1000, -1, -2, 8, -3, 8, 7, 8, 7, 28,
-	7, -5, 25, 9, -5, 28, 7, 10, 28, -6,
-	-8, 16, 23, 7, 11, -6, -7, 9, 7, 26,
-	12, -7, 29, -8, 31, 27, 33, 29, 7, -6,
-	13, 33, 26, -10, -8, 27, 34, 7, 7, 28,
-	30, 34, -6, -10, 28, -4, 28, 17, 20, 14,
-	7, -4, 15, -4, 33, 33, 33, 48, 26, 29,
-	-9, 7, 5, 6, 21, 22, 4, 33, 29, -9,
-	-9, -9, -9, -9, 29, 31, 46, 42, 36, 49,
-	37, 26, 35, 16, 7, -9, -9, 34, 34, 34,
-	31, 27, 29, -9, -9, -9, -9, -9, -9, 24,
-	7, 26, 33, 34, -4, -4, 31, 48, -7, 27,
-	33, -9, 34, 19, -9, -11, -9, 27, -4, 31,
-	34, 30, -9,
+	-1000, -1, -2, 8, -3, 8, 7, -3, 7, 28,
+	-5, 25, 9, 28, 7, 10, -6, -8, 16, 23,
+	7, 11, -7, -6, 9, 7, 26, 12, 29, -7,
+	-8, 31, 27, 33, 7, 13, 33, 26, -10, -8,
+	27, 34, 7, 7, 28, 30, 34, -6, -10, 28,
+	-4, 28, 17, 20, 14, 7, -4, 7, -4, 15,
+	-4, 33, 33, 33, 48, 26, 29, -9, 7, 5,
+	6, 21, 22, 4, 33, 29, -9, -9, -9, -9,
+	-9, 29, 31, 46, 42, 36, 49, 37, 26, 35,
+	16, 7, -9, -9, 34, 34, 34, 31, 27, 29,
+	-9, -9, -9, -9, -9, -9, 24, 7, 26, 33,
+	34, -4, -4, 31, 48, 27, 33, -9, 34, 19,
+	-9, -11, -9, 27, -4, 31, 34, 30, -9,
 }
 
 var yyDef = [...]int8{
-	0, -2, 1, 0, 2, 0, 0, 0, 7, 0,
-	7, 0, 0, 0, 0, 0, 6, 0, 0, 26,
-	0, 19, 18, 20, 0, 26, 0, 0, 0, 0,
-	0, 0, 4, 0, 9, 17, 0, 5, 0, 8,
-	0, 21, 0, 0, 0, 0, 0, 22, 0, 0,
-	21, 0, 16, 23, 16, 0, 16, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 27, 33, 34, 38, 0, 0, 0, 10, 0,
-	0, 0, 0, 0, 3, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 41, 0, 16, 16, 0,
-	14, 0, 24, 28, 29, 30, 31, 32, 0, 36,
-	0, 0, 0, 42, 0, 12, 13, 0, 25, 35,
-	0, 0, 40, 16, 0, 0, 43, 39, 11, 15,
-	37, 0, 44,
+	0, -2, 1, 0, 2, 0, 0, 5, 7, 0,
+	0, 0, 0, 10, 6, 0, 0, 0, 21, 20,
+	22, 0, 0, 8, 0, 0, 0, 0, 4, 27,
+	0, 9, 19, 0, 0, 0, 23, 0, 0, 0,
+	0, 0, 24, 0, 10, 23, 0, 10, 25, 18,
+	0, 18, 0, 0, 0, 22, 0, 0, 17, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 28, 34,
+	35, 39, 0, 0, 0, 11, 0, 0, 0, 0,
+	0, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 42, 0, 18, 18, 0, 15, 0, 26,
+	29, 30, 31, 32, 33, 0, 37, 0, 0, 0,
+	43, 0, 13, 14, 0, 36, 0, 0, 41, 18,
+	0, 0, 44, 40, 12, 16, 38, 0, 45,
 }
 
 var yyTok1 = [...]int8{
@@ -628,7 +628,7 @@ yydefault:
 		yyDollar = yyS[yypt-7 : yypt+1]
 //line syntax.y:99
 		{
-			yyVAL.ast = NewNode("ClassDeclaration:", nil).
+			yyVAL.ast = NewNode("<NewClassDeclaration>:", nil).
 				AddKid(NewNode("", yyDollar[1].token)).
 				AddKid(NewNode("", yyDollar[2].token)).
 				AddKid(yyDollar[3].ast).
@@ -636,10 +636,19 @@ yydefault:
 				AddKid(yyDollar[5].ast).
 				AddKid(yyDollar[6].ast).
 				AddKid(NewNode("}", yyDollar[7].token))
+
+		}
+	case 5:
+		yyDollar = yyS[yypt-2 : yypt+1]
+//line syntax.y:111
+		{
+			yyVAL.ast = NewNode("<ExtraClassDeclarations>:", nil).
+				AddKid(yyDollar[1].ast).
+				AddKid(yyDollar[2].ast)
 		}
 	case 6:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line syntax.y:112
+//line syntax.y:118
 		{
 			yyVAL.ast = NewNode("<Extension> ", nil).
 				AddKid(NewNode("", yyDollar[1].token)).
@@ -647,18 +656,16 @@ yydefault:
 
 		}
 	case 8:
-		yyDollar = yyS[yypt-4 : yypt+1]
-//line syntax.y:121
+		yyDollar = yyS[yypt-2 : yypt+1]
+//line syntax.y:127
 		{
-			yyVAL.ast = NewNode("", nil).
+			yyVAL.ast = NewNode("<Variable definitions>:", nil).
 				AddKid(yyDollar[1].ast).
-				AddKid(NewNode("", yyDollar[2].token)).
-				AddKid(NewNode("", yyDollar[3].token)).
-				AddKid(yyDollar[4].ast)
+				AddKid(yyDollar[2].ast)
 		}
 	case 9:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line syntax.y:129
+//line syntax.y:134
 		{
 			yyVAL.ast = NewNode("", nil).
 				AddKid(yyDollar[1].ast).
@@ -666,43 +673,310 @@ yydefault:
 				AddKid(NewNode("", yyDollar[3].token))
 		}
 	case 10:
+		yyDollar = yyS[yypt-0 : yypt+1]
+//line syntax.y:140
+		{
+			yyVAL.ast = nil
+		}
+	case 11:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line syntax.y:137
+//line syntax.y:144
 		{
 			yyVAL.ast = NewNode("bracketed statement", nil).
 				AddKid(NewNode("{", yyDollar[1].token)).
 				AddKid(yyDollar[2].ast).
 				AddKid(NewNode("}", yyDollar[3].token))
 		}
+	case 12:
+		yyDollar = yyS[yypt-7 : yypt+1]
+//line syntax.y:151
+		{
+			yyVAL.ast = NewNode("<If block>", nil).
+				AddKid(NewNode("", yyDollar[1].token)).
+				AddKid(NewNode("(", yyDollar[2].token)).
+				AddKid(yyDollar[3].ast).
+				AddKid(NewNode(")", yyDollar[4].token)).
+				AddKid(yyDollar[5].ast).
+				AddKid(NewNode("", yyDollar[6].token)).
+				AddKid(yyDollar[7].ast)
+		}
+	case 13:
+		yyDollar = yyS[yypt-5 : yypt+1]
+//line syntax.y:162
+		{
+			yyVAL.ast = NewNode("<While block>", nil).
+				AddKid(NewNode("", yyDollar[1].token)).
+				AddKid(NewNode("", yyDollar[2].token)).
+				AddKid(yyDollar[3].ast).
+				AddKid(NewNode(")", yyDollar[4].token)).
+				AddKid(yyDollar[4].ast)
+
+		}
+	case 14:
+		yyDollar = yyS[yypt-5 : yypt+1]
+//line syntax.y:172
+		{
+			yyVAL.ast = NewNode("<Print Statement>", nil).
+				AddKid(NewNode("", yyDollar[1].token)).
+				AddKid(NewNode("", yyDollar[2].token)).
+				AddKid(yyDollar[3].ast).
+				AddKid(NewNode(")", yyDollar[4].token)).
+				AddKid(NewNode("", yyDollar[5].token))
+		}
+	case 15:
+		yyDollar = yyS[yypt-4 : yypt+1]
+//line syntax.y:181
+		{
+			yyVAL.ast = NewNode("<Affectation>", nil).
+				AddKid(NewNode("", yyDollar[1].token)).
+				AddKid(NewNode("=", yyDollar[2].token)).
+				AddKid(yyDollar[3].ast).
+				AddKid(NewNode("", yyDollar[4].token))
+		}
 	case 16:
+		yyDollar = yyS[yypt-7 : yypt+1]
+//line syntax.y:189
+		{
+			yyVAL.ast = NewNode("<Array Affectation>", nil).
+				AddKid(NewNode("", yyDollar[1].token)).
+				AddKid(NewNode("[", yyDollar[2].token)).
+				AddKid(yyDollar[3].ast).
+				AddKid(NewNode("]", yyDollar[4].token)).
+				AddKid(NewNode("=", yyDollar[5].token)).
+				AddKid(yyDollar[6].ast).
+				AddKid(NewNode("", yyDollar[7].token))
+		}
+	case 17:
+		yyDollar = yyS[yypt-2 : yypt+1]
+//line syntax.y:200
+		{
+			yyVAL.ast = NewNode("<BlockOfStatements>:", nil).
+				AddKid(yyDollar[1].ast).
+				AddKid(yyDollar[2].ast)
+		}
+	case 18:
 		yyDollar = yyS[yypt-0 : yypt+1]
-//line syntax.y:148
+//line syntax.y:205
 		{
 			yyVAL.ast = NewNode("empty statement content", nil)
 		}
-	case 17:
+	case 19:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line syntax.y:149
+//line syntax.y:206
 		{
 			yyVAL.ast = NewNode("int[]", yyDollar[1].token)
 		}
-	case 18:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line syntax.y:150
-		{
-			yyVAL.ast = NewNode("", yyDollar[1].token)
-		}
-	case 19:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line syntax.y:151
-		{
-			yyVAL.ast = NewNode("", yyDollar[1].token)
-		}
 	case 20:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line syntax.y:152
+//line syntax.y:207
 		{
 			yyVAL.ast = NewNode("", yyDollar[1].token)
+		}
+	case 21:
+		yyDollar = yyS[yypt-1 : yypt+1]
+//line syntax.y:208
+		{
+			yyVAL.ast = NewNode("", yyDollar[1].token)
+		}
+	case 22:
+		yyDollar = yyS[yypt-1 : yypt+1]
+//line syntax.y:209
+		{
+			yyVAL.ast = NewNode("", yyDollar[1].token)
+		}
+	case 24:
+		yyDollar = yyS[yypt-2 : yypt+1]
+//line syntax.y:212
+		{
+			yyVAL.ast = NewNode("", nil).
+				AddKid(yyDollar[1].ast).
+				AddKid(NewNode("", yyDollar[2].token))
+		}
+	case 25:
+		yyDollar = yyS[yypt-4 : yypt+1]
+//line syntax.y:218
+		{
+			yyVAL.ast = NewNode("<Method input type>:", nil).
+				AddKid(yyDollar[1].ast).
+				AddKid(NewNode("", yyDollar[2].token)).
+				AddKid(NewNode("", yyDollar[3].token)).
+				AddKid(yyDollar[4].ast)
+		}
+	case 26:
+		yyDollar = yyS[yypt-13 : yypt+1]
+//line syntax.y:228
+		{
+			yyVAL.ast = NewNode("<MethodDeclaration>:", nil).
+				AddKid(NewNode("", yyDollar[1].token)).
+				AddKid(yyDollar[2].ast).
+				AddKid(NewNode("", yyDollar[3].token)).
+				AddKid(NewNode("(", yyDollar[4].token)).
+				AddKid(yyDollar[5].ast).
+				AddKid(NewNode(")", yyDollar[6].token)).
+				AddKid(NewNode("{", yyDollar[7].token)).
+				AddKid(yyDollar[8].ast).
+				AddKid(yyDollar[9].ast).
+				AddKid(NewNode("", yyDollar[10].token)).
+				AddKid(yyDollar[11].ast).
+				AddKid(NewNode(";", yyDollar[12].token)).
+				AddKid(NewNode("}", yyDollar[13].token))
+		}
+	case 27:
+		yyDollar = yyS[yypt-2 : yypt+1]
+//line syntax.y:245
+		{
+			yyVAL.ast = NewNode("<MethodDeclarations>:", nil).
+				AddKid(yyDollar[1].ast).
+				AddKid(yyDollar[2].ast)
+
+		}
+	case 28:
+		yyDollar = yyS[yypt-1 : yypt+1]
+//line syntax.y:254
+		{
+			yyVAL.ast = NewNode("", yyDollar[1].token)
+		}
+	case 29:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line syntax.y:258
+		{
+			yyVAL.ast = NewNode("&&", yyDollar[2].token).
+				AddKid(yyDollar[1].ast).
+				AddKid(yyDollar[3].ast)
+		}
+	case 30:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line syntax.y:264
+		{
+			yyVAL.ast = NewNode("<", yyDollar[2].token).
+				AddKid(yyDollar[1].ast).
+				AddKid(yyDollar[3].ast)
+		}
+	case 31:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line syntax.y:270
+		{
+			yyVAL.ast = NewNode("+", yyDollar[2].token).
+				AddKid(yyDollar[1].ast).
+				AddKid(yyDollar[3].ast)
+		}
+	case 32:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line syntax.y:276
+		{
+			yyVAL.ast = NewNode("+", yyDollar[2].token).
+				AddKid(yyDollar[1].ast).
+				AddKid(yyDollar[3].ast)
+		}
+	case 33:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line syntax.y:282
+		{
+			yyVAL.ast = NewNode("*", yyDollar[2].token).
+				AddKid(yyDollar[1].ast).
+				AddKid(yyDollar[3].ast)
+		}
+	case 34:
+		yyDollar = yyS[yypt-1 : yypt+1]
+//line syntax.y:288
+		{
+			yyVAL.ast = NewNode("", yyDollar[1].token)
+		}
+	case 35:
+		yyDollar = yyS[yypt-1 : yypt+1]
+//line syntax.y:292
+		{
+			yyVAL.ast = NewNode("", yyDollar[1].token)
+		}
+	case 36:
+		yyDollar = yyS[yypt-4 : yypt+1]
+//line syntax.y:296
+		{
+			yyVAL.ast = NewNode("", nil).
+				AddKid(yyDollar[1].ast).
+				AddKid(NewNode("[", yyDollar[2].token)).
+				AddKid(yyDollar[3].ast).
+				AddKid(NewNode("]", yyDollar[4].token))
+		}
+	case 37:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line syntax.y:304
+		{
+			yyVAL.ast = NewNode("<PeriodAccess>:", nil).
+				AddKid(yyDollar[1].ast).
+				AddKid(NewNode(".", yyDollar[2].token)).
+				AddKid(NewNode("", yyDollar[3].token))
+		}
+	case 38:
+		yyDollar = yyS[yypt-6 : yypt+1]
+//line syntax.y:311
+		{
+			yyVAL.ast = NewNode("<AccessedFunction>", nil).
+				AddKid(yyDollar[1].ast).
+				AddKid(NewNode(".", yyDollar[2].token)).
+				AddKid(NewNode("", yyDollar[3].token)).
+				AddKid(NewNode("(", yyDollar[4].token)).
+				AddKid(yyDollar[5].ast).
+				AddKid(NewNode(")", yyDollar[6].token))
+		}
+	case 39:
+		yyDollar = yyS[yypt-1 : yypt+1]
+//line syntax.y:321
+		{
+			yyVAL.ast = NewNode("", yyDollar[1].token)
+		}
+	case 40:
+		yyDollar = yyS[yypt-5 : yypt+1]
+//line syntax.y:325
+		{
+			yyVAL.ast = NewNode("", nil).
+				AddKid(NewNode("", yyDollar[1].token)).
+				AddKid(NewNode("", yyDollar[2].token)).
+				AddKid(NewNode("[", yyDollar[3].token)).
+				AddKid(yyDollar[4].ast).
+				AddKid(NewNode("]", yyDollar[5].token))
+		}
+	case 41:
+		yyDollar = yyS[yypt-4 : yypt+1]
+//line syntax.y:334
+		{
+			yyVAL.ast = NewNode("<Instantiation>:", nil).
+				AddKid(NewNode("", yyDollar[1].token)).
+				AddKid(NewNode("", yyDollar[2].token)).
+				AddKid(NewNode("(", yyDollar[3].token)).
+				AddKid(NewNode(")", yyDollar[4].token))
+		}
+	case 42:
+		yyDollar = yyS[yypt-2 : yypt+1]
+//line syntax.y:342
+		{
+			yyVAL.ast = NewNode("<NOT!>:", nil).
+				AddKid(NewNode("!", yyDollar[1].token)).
+				AddKid(yyDollar[2].ast)
+		}
+	case 43:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line syntax.y:348
+		{
+			yyVAL.ast = NewNode("<ParenthesisedExpression>", nil).
+				AddKid(NewNode("(", yyDollar[1].token)).
+				AddKid(yyDollar[2].ast).
+				AddKid(NewNode(")", yyDollar[3].token))
+		}
+	case 44:
+		yyDollar = yyS[yypt-1 : yypt+1]
+//line syntax.y:356
+		{
+			yyVAL.ast = yyDollar[1].ast
+		}
+	case 45:
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line syntax.y:360
+		{
+			yyVAL.ast = NewNode("<MultiParametersMethodSignature>", nil).
+				AddKid(yyDollar[1].ast).
+				AddKid(NewNode(".", yyDollar[2].token)).
+				AddKid(yyDollar[3].ast)
 		}
 	}
 	goto yystack /* stack new state and value */
