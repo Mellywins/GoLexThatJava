@@ -10,6 +10,7 @@ type Node struct {
 	Name     string
 	Token    *lexmachine.Token
 	Children []*Node
+	parent   *Node
 }
 
 const (
@@ -30,6 +31,9 @@ func NewNode(name string, token *lexmachine.Token) *Node {
 // Add a child at the end of the children list to a node.
 func (n *Node) AddKid(kid *Node) *Node {
 	n.Children = append(n.Children, kid)
+	if kid != nil {
+		kid.parent = n
+	}
 	return n
 }
 
@@ -37,12 +41,18 @@ func (n *Node) AddKid(kid *Node) *Node {
 func (n *Node) PrependKid(kid *Node) *Node {
 	kids := append(make([]*Node, 0, cap(n.Children)+1), kid)
 	n.Children = append(kids, n.Children...)
+	if kid != nil {
+		kid.parent = n
+	}
 	return n
 }
 
 // String makes the AST human readable
 
 func (n *Node) String() string {
+	if n == nil {
+		return ""
+	}
 	parts := make([]string, 0, len(n.Children))
 	parts = append(parts, n.Name)
 	if n.Token != nil && string(n.Token.Lexeme) != n.Name {
