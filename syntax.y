@@ -136,6 +136,7 @@ VarDeclaration : VarDeclaration VarDeclaration
 				AddKid($1.ast).
 				AddKid(NewNode("",$2.token)).
 				AddKid(NewNode("",$3.token))
+
 			}
 		| { $$.ast=nil }
 		;
