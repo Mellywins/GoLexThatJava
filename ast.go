@@ -10,7 +10,8 @@ type Node struct {
 	Name     string
 	Token    *lexmachine.Token
 	Children []*Node
-	parent   *Node
+	Parent   *Node
+	Context  map[string]*AbstractLocalVariable
 }
 
 const (
@@ -23,8 +24,9 @@ const (
 
 func NewNode(name string, token *lexmachine.Token) *Node {
 	return &Node{
-		Name:  name,
-		Token: token,
+		Name:    name,
+		Token:   token,
+		Context: make(map[string]*AbstractLocalVariable),
 	}
 }
 
@@ -32,7 +34,7 @@ func NewNode(name string, token *lexmachine.Token) *Node {
 func (n *Node) AddKid(kid *Node) *Node {
 	n.Children = append(n.Children, kid)
 	if kid != nil {
-		kid.parent = n
+		kid.Parent = n
 	}
 	return n
 }
@@ -42,8 +44,12 @@ func (n *Node) PrependKid(kid *Node) *Node {
 	kids := append(make([]*Node, 0, cap(n.Children)+1), kid)
 	n.Children = append(kids, n.Children...)
 	if kid != nil {
-		kid.parent = n
+		kid.Parent = n
 	}
+	return n
+}
+func (n *Node) AddParent(parent *Node) *Node {
+	n.Parent = parent
 	return n
 }
 

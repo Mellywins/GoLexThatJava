@@ -46,6 +46,9 @@ func main() {
 	for _, stmt := range stmts {
 		fmt.Println(stmt)
 	}
+	for _, v := range CheckVariableHierarchyQueue {
+		FindHealthyOccurenceInParentContexts(v, v.Token.Value.(string))
+	}
 }
 
 func parse(lexer *lexmachine.Lexer, fin io.Reader) (stmts []*Node, err error) {

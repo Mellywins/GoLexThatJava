@@ -1,19 +1,18 @@
-class HelloWorld{
+class HelloWorld {
+int kwx=5;
 public static void main(String[] args){
-        {
-            if (1 && 2)
-                {
-                    x=1;
-                    whilae(1)
-
-                        {
-                            System.out.println(he);
-                        }
-                }
-            else
-                {
-                    System.out.println(Hello);
-                }
-        }
+        kwx=6;
     }
+
+
 }
+
+class Test extends Thread {
+     int kwzae=5;
+     public int run(int x){
+     int k=5;
+     System.out.println(z);
+     return x;
+     }
+    }
+
